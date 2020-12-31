@@ -9,7 +9,7 @@ import {Member} from '../../models/member.model';
 })
 export class MemberListComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'cin', 'name', 'type', 'cv', 'createdDate'];
+  displayedColumns: string[] = ['id', 'cin', 'name', 'type', 'cv', 'createdDate', 'actions'];
   dataSource: Member[] = [];
 
   constructor(
@@ -22,7 +22,15 @@ export class MemberListComponent implements OnInit {
   }
 
   fetchDataSource(): void {
-    this.dataSource = this.memberService.placeholderMembers;
+    this.memberService.getAllMembers().then(data => {
+      this.dataSource = data;
+    });
+  }
+
+  onRemoveAccount(id: string): void {
+    this.memberService.removeMemberById(id).then(() => {
+      this.fetchDataSource();
+    });
   }
 
 }
