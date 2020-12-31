@@ -7,6 +7,7 @@ import { MemberListComponent } from './member-list/member-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MemberFormComponent } from './member-form/member-form.component';
 import { SharedModule } from '../@root/shared.module';
+import { LayoutComponent } from './layout/layout.component';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { SharedModule } from '../@root/shared.module';
     AppComponent,
     MemberListComponent,
     MemberFormComponent,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,
