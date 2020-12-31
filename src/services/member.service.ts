@@ -20,7 +20,6 @@ export class MemberService {
 
   getAllMembers(): Promise<Member[]> {
      return this.httpClient.get<Member[]>(`${this.path}/membres`).toPromise();
-    //return new Promise(resolve => resolve(this.placeholderMembers));
   }
 
   getMemberById(id: string): Promise<Member> {
@@ -49,10 +48,7 @@ export class MemberService {
 
 
   removeMemberById(id: string): Promise<void> {
-    // return this.httpClient.delete<void>('linkToRestApi').toPromise();
-    //this.placeholderMembers = this.placeholderMembers.filter(item => item.id !== id);
-    this.httpClient.delete<Member>(`${this.path}/membres/${id}`).toPromise();
-    return new Promise(resolve => resolve());
+    return this.httpClient.delete<void>(`${this.path}/membres/${id}`).toPromise();
   }
 
 
