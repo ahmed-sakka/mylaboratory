@@ -1,27 +1,42 @@
 <div class="container">
-    <h4> Create New Member</h4>
+    <h4>Ajout d'un membre</h4>
 
     <form [formGroup]="form" *ngIf="!!form" (ngSubmit)="onSubmit()" class="form">
 
         <mat-form-field>
-            <input matInput placeholder="cin" formControlName="cin">
+            <input matInput placeholder="CIN" formControlName="cin">
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="name" formControlName="name">
+            <input matInput placeholder="Prenom" formControlName="prenom">
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="cv" formControlName="cv">
+            <input matInput placeholder="Nom" formControlName="nom">
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="type" formControlName="type">
+            <input matInput placeholder="Diplome" formControlName="diplome">
         </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Date de naissance" formControlName="dateNaissance" type="date">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="CV" formControlName="cv">
+        </mat-form-field>
+
+        
 
         <div class="form-element">
             <button mat-raised-button color="primary" type="submit" class="button"
-                [disabled]="form.invalid">Submit</button>
+                [disabled]="form.invalid">
+                Enregister</button>
         </div>
     </form>
 

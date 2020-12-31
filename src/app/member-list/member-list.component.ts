@@ -9,7 +9,7 @@ import {Member} from '../../models/member.model';
 })
 export class MemberListComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'cin', 'name', 'type', 'cv', 'createdDate', 'actions'];
+  displayedColumns: string[] = ['id', 'cin', 'nom', 'diplome' ,'email','dateNaissance', 'dateInscription', 'cv','actions'];
   dataSource: Member[] = [];
 
   constructor(
