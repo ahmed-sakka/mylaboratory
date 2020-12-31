@@ -11,13 +11,27 @@ const routes: Routes = [
   },
   {
     path: 'members',
-    pathMatch: 'full',
-    component: MemberListComponent,
-  },
-  {
-    path: 'members-form',
-    pathMatch: 'full',
-    component: MemberFormComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: MemberListComponent,
+      },
+      {
+        path: 'create',
+        pathMatch: 'full',
+        component: MemberFormComponent,
+      },
+      {
+        path: ':id/edit',
+        pathMatch: 'full',
+        component: MemberFormComponent,
+      },
+      {
+        path: '**',
+        redirectTo: '',
+      },
+    ]
   },
   {
     path: '**',
