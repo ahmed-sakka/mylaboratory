@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmDialogComponent } from 'src/@root/components/confirm-dialog/confirm-dialog.component';
 import { MemberService } from 'src/services/member.service';
-import {Member} from '../../models/member.model';
+import {Member} from '../../../../models/member.model';
 import {MatDialog} from "@angular/material/dialog";
 import { Subject } from 'rxjs';
 import {takeUntil} from "rxjs/operators";

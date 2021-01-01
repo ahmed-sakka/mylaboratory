@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Member} from '../../models/member.model';
+import {Member} from '../../../../models/member.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MemberService} from '../../services/member.service';
+import {MemberService} from '../../../../services/member.service';
 
 @Component({
   selector: 'app-member-form',

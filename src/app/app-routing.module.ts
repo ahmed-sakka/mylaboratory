@@ -1,23 +1,39 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { EventFormComponent } from './event-form/event-form.component';
-import { EventListComponent } from './event-list/event-list.component';
-import { MemberFormComponent } from './member-form/member-form.component';
-import {MemberListComponent} from './member-list/member-list.component';
-import { PublicationFormComponent } from './publication-form/publication-form.component';
-import { PublicationListComponent } from './publication-list/publication-list.component';
-import { ToolFormComponent } from './tool-form/tool-form.component';
-import { ToolListComponent } from './tool-list/tool-list.component';
+import { AuthGuard } from 'src/services/auth.guard';
+import { LoginComponent } from './main/auth/login/login.component';
+import { DashboardComponent } from './main/dashboard/dashboard.component';
+import { EventFormComponent } from './main/event/event-form/event-form.component';
+import { EventListComponent } from './main/event/event-list/event-list.component';
+import { MemberFormComponent } from './main/member/member-form/member-form.component';
+import { MemberListComponent } from './main/member/member-list/member-list.component';
+import { PublicationFormComponent } from './main/publication/publication-form/publication-form.component';
+import { PublicationListComponent } from './main/publication/publication-list/publication-list.component';
+import { ToolFormComponent } from './main/tool/tool-form/tool-form.component';
+import { ToolListComponent } from './main/tool/tool-list/tool-list.component';
+
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
+    redirectTo: 'dashboard',
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
     component: DashboardComponent,
   },
   {
+    path: 'login',
+    pathMatch: 'full',
+    component: LoginComponent,
+  },
+  {
     path: 'members',
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
@@ -42,6 +58,8 @@ const routes: Routes = [
   },
   {
     path: 'publications',
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
@@ -66,6 +84,8 @@ const routes: Routes = [
   },
   {
     path: 'events',
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
@@ -90,6 +110,8 @@ const routes: Routes = [
   },
   {
     path: 'tools',
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
