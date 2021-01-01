@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ArticleFormComponent } from './article-form/article-form.component';
-import { ArticleListComponent } from './article-list/article-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EventFormComponent } from './event-form/event-form.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { MemberFormComponent } from './member-form/member-form.component';
 import {MemberListComponent} from './member-list/member-list.component';
+import { PublicationFormComponent } from './publication-form/publication-form.component';
+import { PublicationListComponent } from './publication-list/publication-list.component';
 import { ToolFormComponent } from './tool-form/tool-form.component';
 import { ToolListComponent } from './tool-list/tool-list.component';
 
@@ -41,22 +41,22 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'articles',
+    path: 'publications',
     children: [
       {
         path: '',
         pathMatch: 'full',
-        component: ArticleListComponent,
+        component: PublicationListComponent,
       },
       {
         path: 'create',
         pathMatch: 'full',
-        component: ArticleFormComponent,
+        component: PublicationFormComponent,
       },
       {
         path: ':id/edit',
         pathMatch: 'full',
-        component: ArticleFormComponent,
+        component: PublicationFormComponent,
       },
       {
         path: '**',
