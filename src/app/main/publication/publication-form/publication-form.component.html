@@ -1,1 +1,36 @@
-<p>publication-form works!</p>
+<div class="container">
+    <h4>Ajout d'une publication</h4>
+
+    <form [formGroup]="form" *ngIf="!!form" (ngSubmit)="onSubmit()" class="form">
+
+        <mat-form-field>
+            <input matInput placeholder="Titre" formControlName="titre">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Type" formControlName="type">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Date de publication" formControlName="date" type="date">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Source" formControlName="source">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Lien" formControlName="lien">
+        </mat-form-field>
+
+        
+
+        <div class="form-element">
+            <button mat-raised-button color="primary" type="submit" class="button"
+                [disabled]="form.invalid">
+                Enregister</button>
+        </div>
+    </form>
+
+
+</div>
