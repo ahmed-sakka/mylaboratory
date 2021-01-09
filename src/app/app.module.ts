@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -19,6 +20,8 @@ import { FirebaseModule } from 'src/@root/firebase/firebase.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'src/services/token.interceptor';
 import { LoginComponent } from './main/auth/login/login.component';
+import { AuthenticationService } from 'src/services/authentication.service';
+import { ProfilComponent } from './main/profil/profil.component';
 
 
 @NgModule({
@@ -35,6 +38,7 @@ import { LoginComponent } from './main/auth/login/login.component';
     PublicationListComponent,
     PublicationFormComponent,
     LoginComponent,
+    ProfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +46,7 @@ import { LoginComponent } from './main/auth/login/login.component';
     BrowserAnimationsModule,
     SharedModule,
     FirebaseModule,
+    HttpClientModule
   ],
   providers: [
     {
@@ -49,6 +54,7 @@ import { LoginComponent } from './main/auth/login/login.component';
       useClass: TokenInterceptor,
       multi: true
     },
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,7 +1,18 @@
-<div class="container">
-    <h4>Ajout d'un membre</h4>
 
-    <form [formGroup]="form" *ngIf="!!form" (ngSubmit)="onSubmit()" class="form">
+<div class="container">
+
+    <h4>Ajout d'un membre</h4>
+    <mat-form-field appearance="fill" >
+        <mat-label>Choose one</mat-label>
+        <mat-select [(ngModel)]="selectedValue">
+          <mat-option  selected value="etudiant">Etudiant</mat-option>
+          <mat-option value="ens">Enseignant</mat-option>
+        </mat-select>
+  
+      </mat-form-field>
+     <button (click)="choisir()" mat-raised-button color="primary" type="submit" class="button"> Choisir </button>
+
+    <form *ngIf="isStudent"[formGroup]="form" (ngSubmit)="onSubmit()" class="form">
 
         <mat-form-field>
             <input matInput placeholder="CIN" formControlName="cin">
@@ -22,6 +33,9 @@
         <mat-form-field>
             <input matInput placeholder="Email" formControlName="email">
         </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="password" formControlName="password">
+        </mat-form-field>
 
         <mat-form-field>
             <input matInput placeholder="Date de naissance" formControlName="dateNaissance" type="date">
@@ -31,7 +45,54 @@
             <input matInput placeholder="CV" formControlName="cv">
         </mat-form-field>
 
-        
+        <mat-form-field>
+            <input matInput placeholder="Date d'inscription " formControlName="dateInscription" type="date">
+        </mat-form-field>
+
+        <div class="form-element">
+            <button mat-raised-button color="primary" type="submit" class="button"
+                [disabled]="form.invalid">
+                Enregister</button>
+        </div>
+    </form>
+
+    <form *ngIf="isEns" [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+
+        <mat-form-field>
+            <input matInput placeholder="CIN" formControlName="cin">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Prenom" formControlName="prenom">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Nom" formControlName="nom">
+        </mat-form-field>
+
+   
+
+        <mat-form-field>
+            <input matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Date de naissance" formControlName="dateNaissance" type="date">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="CV" formControlName="cv">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="password" formControlName="password">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="grade" formControlName="grade">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="etablissement" formControlName="etablissement">
+        </mat-form-field>
 
         <div class="form-element">
             <button mat-raised-button color="primary" type="submit" class="button"

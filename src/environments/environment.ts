@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  gatewayEndpoint: 'http://localhost:8080',
+  gatewayEndpoint: 'http://localhost:8088',
 
   firebase : {
   apiKey: 'AIzaSyByjZvkP3NYohpZrOtOELr_c_ND38W6Tso',

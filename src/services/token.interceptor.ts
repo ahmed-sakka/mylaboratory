@@ -42,8 +42,8 @@ export class TokenInterceptor implements HttpInterceptor {
           verticalPosition: 'bottom',
           panelClass: 'red-700',
         });
-        this.auth.doLogout();
-        this.router.navigate(['/login']);
+        
+        
       }
       return throwError(error);
     }));
