@@ -1,9 +1,8 @@
 <div class="my-16" fxLayout="row" fxLayoutAlign="end center">
-    <button mat-raised-button color="primary" routerLink="tools">
+    <button mat-raised-button color="primary" routerLink="publications">
         <mat-icon class="s-24 mr-4">reply</mat-icon>
         Retour
     </button>
-
 </div>
 
 <table class="table table-striped ">
@@ -13,16 +12,32 @@
             <td>{{item.id}}</td>
         </tr>
         <tr>
-            <th>Source</th>
-            <td>
-                <a [href]="item.source" target="_blank">
-                    <mat-icon>link</mat-icon>
-                </a>
-            </td>
+            <th>Titre</th>
+            <td>{{item.titre}}</td>
+        </tr>
+        <tr>
+            <th>Type</th>
+            <td>{{item.type}}</td>
         </tr>
         <tr>
             <th>Date de publication</th>
             <td>{{item.date | date :'dd/MM/y'}}</td>
+        </tr>
+        <tr>
+            <th>Source</th>
+            <td>
+                <a [href]="item.source" target="_blank">
+                    <mat-icon>picture_as_pdf</mat-icon>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th>Lien</th>
+            <td>
+                <a [href]="item.lien" target="_blank">
+                    <mat-icon>link</mat-icon>
+                </a>
+            </td>
         </tr>
         <tr>
             <th>Collaborateurs</th>
@@ -46,7 +61,5 @@
             </td>
         </tr>
 
-
     </tbody>
-
 </table>

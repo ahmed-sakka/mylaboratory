@@ -1,3 +1,10 @@
+<div class="my-16" fxLayout="row" fxLayoutAlign="end center">
+    <button mat-raised-button color="primary" routerLink="publications">
+        <mat-icon class="s-24 mr-4">reply</mat-icon>
+        Retour
+    </button>
+</div>
+
 <div class="container">
     <h4>Ajout d'une publication</h4>
 
@@ -23,8 +30,7 @@
             <input matInput placeholder="Lien" formControlName="lien">
         </mat-form-field>
 
-        
-
+    
         <div class="form-element">
             <button mat-raised-button color="primary" type="submit" class="button"
                 [disabled]="form.invalid">

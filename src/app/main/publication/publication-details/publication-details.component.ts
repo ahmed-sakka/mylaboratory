@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, ViewChild, OnDestroy, OnInit } from '@angular/core';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ConfirmDialogComponent } from 'src/@root/components/confirm-dialog/confirm-dialog.component';
@@ -9,19 +8,21 @@ import { Publication } from 'src/models/publication.model';
 import { PublicationService } from 'src/services/publication.service';
 
 @Component({
-  selector: 'app-publication-list',
-  templateUrl: './publication-list.component.html',
-  styleUrls: ['./publication-list.component.scss']
+  selector: 'app-publication-details',
+  templateUrl: './publication-details.component.html',
+  styleUrls: ['./publication-details.component.scss']
 })
-export class PublicationListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class PublicationDetailsComponent implements OnInit, OnDestroy {
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();
 
-  displayedColumns: string[] = ['id', 'titre', 'type', 'date' ,'source','lien','actions'];
-  dataSource;
+  currentItemId: string;
+  item: Publication;
 
   constructor(
     private publicationService: PublicationService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
   ) {
   }
@@ -32,13 +33,12 @@ export class PublicationListComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   ngOnInit(): void {
-    this.fetchDataSource();
-  }
-
-  fetchDataSource(): void {
-    this.publicationService.getAllPublications().then(data => {
-      this.dataSource = data;
-    });
+    this.currentItemId = this.activatedRoute.snapshot.params.id;
+    if (!!this.currentItemId) {
+      this.publicationService.getPublicationById(this.currentItemId).then(item => {
+        this.item = item;
+      });
+    }
   }
 
   onRemoveItem(id: any): void {
@@ -52,21 +52,7 @@ export class PublicationListComponent implements OnInit, OnDestroy, AfterViewIni
     dialogRef.afterClosed().pipe(takeUntil(this._onDestroy)).subscribe(isDeleteConfirmed => {
       console.log('removing: ', isDeleteConfirmed);
       if (isDeleteConfirmed) {
-        this.publicationService.removePublicationById(id).then(() => this.fetchDataSource());
-      }
-    });
-  }
-
-  // Sort
-  @ViewChild(MatSort) sort: MatSort;
-
-  ngAfterViewInit(): void
-  {
-    this.publicationService.getAllPublications().then(data => {
-      this.dataSource = new MatTableDataSource(data);
-      if (this.sort) // check it is defined.
-      {
-          this.dataSource.sort = this.sort;
+        this.publicationService.removePublicationById(id).then(() => this.router.navigate(['./publications']));
       }
     });
   }

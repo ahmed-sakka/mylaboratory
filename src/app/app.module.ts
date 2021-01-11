@@ -23,6 +23,7 @@ import { LoginComponent } from './main/auth/login/login.component';
 import { AuthenticationService } from 'src/services/authentication.service';
 import { ProfilComponent } from './main/profil/profil.component';
 import { ToolDetailsComponent } from './main/tool/tool-details/tool-details.component';
+import { PublicationDetailsComponent } from './main/publication/publication-details/publication-details.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { ToolDetailsComponent } from './main/tool/tool-details/tool-details.comp
     LoginComponent,
     ProfilComponent,
     ToolDetailsComponent,
+    PublicationDetailsComponent,
   ],
   imports: [
     BrowserModule,
