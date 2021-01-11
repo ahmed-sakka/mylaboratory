@@ -12,6 +12,7 @@ import { PublicationFormComponent } from './main/publication/publication-form/pu
 import { PublicationListComponent } from './main/publication/publication-list/publication-list.component';
 import { ToolFormComponent } from './main/tool/tool-form/tool-form.component';
 import { ToolListComponent } from './main/tool/tool-list/tool-list.component';
+import { ToolDetailsComponent } from './main/tool/tool-details/tool-details.component';
 
 
 const routes: Routes = [
@@ -123,6 +124,11 @@ const routes: Routes = [
         path: 'create',
         pathMatch: 'full',
         component: ToolFormComponent,
+      },
+      {
+        path: ':id',
+        pathMatch: 'full',
+        component: ToolDetailsComponent,
       },
       {
         path: ':id/edit',

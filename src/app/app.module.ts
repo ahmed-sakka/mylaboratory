@@ -22,6 +22,7 @@ import { TokenInterceptor } from 'src/services/token.interceptor';
 import { LoginComponent } from './main/auth/login/login.component';
 import { AuthenticationService } from 'src/services/authentication.service';
 import { ProfilComponent } from './main/profil/profil.component';
+import { ToolDetailsComponent } from './main/tool/tool-details/tool-details.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { ProfilComponent } from './main/profil/profil.component';
     PublicationFormComponent,
     LoginComponent,
     ProfilComponent,
+    ToolDetailsComponent,
   ],
   imports: [
     BrowserModule,

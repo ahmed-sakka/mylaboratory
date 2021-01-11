@@ -6,28 +6,31 @@
   
   </div>
   
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100-p">
     <ng-container matColumnDef="id">
-      <th mat-header-cell class="px-12" *matHeaderCellDef> ID</th>
+      <th mat-header-cell class="px-12" *matHeaderCellDef mat-sort-header> ID</th>
       <td mat-cell class="px-12" *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
   
     <ng-container matColumnDef="source">
-      <th mat-header-cell class="px-12" *matHeaderCellDef> Source</th>
+      <th mat-header-cell class="px-12" *matHeaderCellDef mat-sort-header> Source</th>
       <td mat-cell class="px-12" *matCellDef="let element"> {{element.source}} </td>
     </ng-container>
     
     <ng-container matColumnDef="date">
-      <th mat-header-cell class="px-12" *matHeaderCellDef> Date de publication</th>
+      <th mat-header-cell class="px-12" *matHeaderCellDef mat-sort-header> Date de publication</th>
       <td mat-cell class="px-12" *matCellDef="let element">
-        {{element.date | date :'d MMMM y'}}
+        {{element.date | date :'d/MM/y'}}
       </td>
     </ng-container>
     
     <ng-container matColumnDef="actions" stickyEnd>
-      <th mat-header-cell class="px-12 w-120" *matHeaderCellDef></th>
-      <td mat-cell class="px-12 w-120" *matCellDef="let element">
-        <button mat-icon-button [routerLink]="element.id + '/edit'">
+      <th mat-header-cell class="px-12 w-160" *matHeaderCellDef></th>
+      <td mat-cell class="px-12 w-160" *matCellDef="let element">
+        <button mat-icon-button color="primary" [routerLink]="element.id">
+          <mat-icon>remove_red_eye</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" [routerLink]="element.id + '/edit'">
           <mat-icon>edit</mat-icon>
         </button>
         <button mat-icon-button color="warn" (click)="onRemoveAccount(element.id)">

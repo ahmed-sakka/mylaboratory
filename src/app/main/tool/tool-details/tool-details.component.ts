@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, ViewChild, OnDestroy, OnInit } from '@angular/core';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ConfirmDialogComponent } from 'src/@root/components/confirm-dialog/confirm-dialog.component';
@@ -9,19 +8,21 @@ import { Tool } from 'src/models/tool.model';
 import { ToolService } from 'src/services/tool.service';
 
 @Component({
-  selector: 'app-tool-list',
-  templateUrl: './tool-list.component.html',
-  styleUrls: ['./tool-list.component.scss']
+  selector: 'app-tool-details',
+  templateUrl: './tool-details.component.html',
+  styleUrls: ['./tool-details.component.scss']
 })
-export class ToolListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ToolDetailsComponent implements OnInit, OnDestroy {
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();
 
-  displayedColumns: string[] = ['id','source', 'date' ,'actions'];
-  dataSource;
+  currentItemId: string;
+  item: Tool;
 
   constructor(
     private toolService: ToolService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
   ) {
   }
@@ -32,16 +33,17 @@ export class ToolListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.fetchDataSource();
+    this.currentItemId = this.activatedRoute.snapshot.params.id;
+    if (!!this.currentItemId) {
+      this.toolService.getToolById(this.currentItemId).then(item => {
+        this.item = item;
+      });
+    }
   }
 
-  fetchDataSource(): void {
-    this.toolService.getAllTools().then(data => {
-      this.dataSource = data;
-    });
-  }
 
-  onRemoveAccount(id: any): void {
+
+  onRemoveItem(id: any): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       hasBackdrop: true,
       disableClose: false,
@@ -52,21 +54,7 @@ export class ToolListComponent implements OnInit, OnDestroy, AfterViewInit {
     dialogRef.afterClosed().pipe(takeUntil(this._onDestroy)).subscribe(isDeleteConfirmed => {
       console.log('removing: ', isDeleteConfirmed);
       if (isDeleteConfirmed) {
-        this.toolService.removeToolById(id).then(() => this.fetchDataSource());
-      }
-    });
-  }
-
-  // Sort
-  @ViewChild(MatSort) sort: MatSort;
-
-  ngAfterViewInit(): void
-  {
-    this.toolService.getAllTools().then(data => {
-      this.dataSource = new MatTableDataSource(data);
-      if (this.sort) // check it is defined.
-      {
-          this.dataSource.sort = this.sort;
+        this.toolService.removeToolById(id).then(() => this.router.navigate(['./tools']));
       }
     });
   }
