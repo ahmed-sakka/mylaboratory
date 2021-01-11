@@ -1,32 +1,20 @@
-<div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center" class="h-100-p">
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
 
-  <mat-card id="login-form" class="my-40 mx-16" style="max-width: 360px;">
-    <mat-card-content class="pt-40">
-      <div fxLayout="column" fxLayoutAlign="center center">
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZrp4yVgfa2UerilRncQoOqG_2nIwyh9S2yw&usqp=CAU" id="icon" alt="User Icon" />
+    </div>
 
-        <div class="mat-title mb-20 mt-40"> Laboratoire</div>
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <input type="text"  class="fadeIn second" name="username" placeholder="login" formControlName="userName">
+      <input type="password"  class="fadeIn third" name="password" placeholder="password" formControlName="password">
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
 
-        <div class="my-20 w-240 abcRioButton abcRioButtonBlue" (click)="tryGoogleLogin()">
-          <div class="abcRioButtonContentWrapper">
-            <div class="abcRioButtonIcon" style="padding:15px">
-              <div style="width:18px;height:18px;"
-                   class="abcRioButtonSvgImageWithFallback abcRioButtonIconImage abcRioButtonIconImage18">
-                <img style="width:18px;height:18px;" src="assets/google.svg"/>
-              </div>
-            </div>
-            <span style="font-size:16px;line-height:48px;" class="abcRioButtonContents">
-                <span id="not_signed_inpsj1je4qtaby">Sign in with Google</span>
-            </span>
-          </div>
-        </div>
+   
 
-      </div>
-
-
-    </mat-card-content>
-
-
-  </mat-card>
-
+  </div>
 </div>
-

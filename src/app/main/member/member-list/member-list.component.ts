@@ -15,7 +15,7 @@ export class MemberListComponent implements OnInit, OnDestroy {
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();
 
-  displayedColumns: string[] = ['id', 'cin', 'nom', 'diplome' ,'email','dateNaissance', 'dateInscription', 'cv','actions'];
+  displayedColumns: string[] = ['id', 'cin', 'nom', 'diplome' ,'email','dateNaissance', 'dateInscription', 'cv', 'type', 'actions'];
   dataSource: Member[] = [];
 
   constructor(

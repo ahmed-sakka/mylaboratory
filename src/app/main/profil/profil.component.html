@@ -1,0 +1,125 @@
+<div class="container" id="scrollable">
+    <div class="main-body">
+    
+         
+    
+          <!-- /Breadcrumb -->
+    
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                    <div class="mt-3">
+                      <h4>{{fullUser?.nom}} {{fullUser?.prenom}}</h4>
+                      <p class="text-secondary mb-1">Full Stack Developer</p>
+                      <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                      <button class="btn btn-primary">Follow</button>
+                      <button class="btn btn-outline-primary">Message</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mt-3">
+                <div class="row gutters-sm">
+                    <div class="col-sm-6 mb-3">
+                      <div class="card ">
+                        <div class="card-body">
+                          <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Evenements</h6>
+                          <div *ngFor="let event of fullUser.events" >
+                          <h3>{{event.titre}} : {{event.date |date : 'yyy-mm-dd'}}</h3>
+                          <h5>lieu : {{event.lieu}}</h5>
+                          
+                        </div>
+                         
+                          
+                          
+                        </div>
+                      </div>
+                    </div>
+                   
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Full Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{fullUser?.nom}} {{fullUser?.prenom}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{fullUser?.email}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">CIN</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{fullUser.cin}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Mobile</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{fullUser.phone}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Address</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{fullUser.adress}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row gutters-sm">
+                <div class="col-sm-6 mb-3">
+                  <div class="card ">
+                    <div class="card-body">
+                      <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Outils</h6>
+                      <div *ngFor="let outil of fullUser.outils" >
+                      <h3>{{outil.source}} : {{outil.date |date : 'yyy-mm-dd'}}</h3>
+                      
+                    </div>
+                     
+                      
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 mb-3">
+                  <div class="card ">
+                    <div class="card-body">
+                      <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Publications</h6>
+                      <div *ngFor="let publication of fullUser.publications" >
+                        <h1>{{publication.titre}} : {{publication.date |date : 'yyy-mm-dd'}}</h1>
+                        <p>Lien: {{publication.lien}} </p>
+                        <p>source: {{publication.source}} </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>

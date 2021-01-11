@@ -1,3 +1,4 @@
+import { ProfilComponent } from './main/profil/profil.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/services/auth.guard';
@@ -133,6 +134,10 @@ const routes: Routes = [
         redirectTo: '',
       },
     ]
+  },
+  {
+    path: 'profile/:id',
+    component: ProfilComponent
   },
   {
     path: '**',

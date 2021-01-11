@@ -1,6 +1,7 @@
+import { AuthenticationService } from 'src/services/authentication.service';
 import {Injectable} from '@angular/core';
 import {GLOBAL} from '../app/app-config';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Event } from 'src/models/event.model';
 import { environment } from 'src/environments/environment';
 
@@ -12,10 +13,15 @@ export class EventService {
   private path = `${environment.gatewayEndpoint}/evenement-service`;
   // @ts-ignore
   public placeholderEvents: Event[] = GLOBAL._DB.events;
+  private headers  = new HttpHeaders();
+
 
   constructor(
     private httpClient: HttpClient,
+    private authService: AuthenticationService
   ) {
+    this.headers.append('authorization'
+    , this.authService.loadToken());
   }
 
   getAllEvents(): Promise<Event[]> {
