@@ -24,6 +24,7 @@ import { AuthenticationService } from 'src/services/authentication.service';
 import { ProfilComponent } from './main/profil/profil.component';
 import { ToolDetailsComponent } from './main/tool/tool-details/tool-details.component';
 import { PublicationDetailsComponent } from './main/publication/publication-details/publication-details.component';
+import { EventDetailsComponent } from './main/event/event-details/event-details.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { PublicationDetailsComponent } from './main/publication/publication-deta
     ProfilComponent,
     ToolDetailsComponent,
     PublicationDetailsComponent,
+    EventDetailsComponent,
   ],
   imports: [
     BrowserModule,

@@ -14,6 +14,7 @@ import { ToolFormComponent } from './main/tool/tool-form/tool-form.component';
 import { ToolListComponent } from './main/tool/tool-list/tool-list.component';
 import { ToolDetailsComponent } from './main/tool/tool-details/tool-details.component';
 import { PublicationDetailsComponent } from './main/publication/publication-details/publication-details.component';
+import { EventDetailsComponent } from './main/event/event-details/event-details.component';
 
 
 const routes: Routes = [
@@ -104,6 +105,11 @@ const routes: Routes = [
         path: 'create',
         pathMatch: 'full',
         component: EventFormComponent,
+      },
+      {
+        path: ':id',
+        pathMatch: 'full',
+        component: EventDetailsComponent,
       },
       {
         path: ':id/edit',
