@@ -24,6 +24,9 @@ import { ProfilComponent } from './main/profil/profil.component';
 import { EventParticeptionComponent } from './main/event/event-partiception/event-partiception.component';
 import { PublicationMemberComponent } from './main/publication/publication-member/publication-member.component';
 import { TollsMembersComponent } from './main/tool/tolls-members/tolls-members.component';
+import { ToolDetailsComponent } from './main/tool/tool-details/tool-details.component';
+import { PublicationDetailsComponent } from './main/publication/publication-details/publication-details.component';
+import { EventDetailsComponent } from './main/event/event-details/event-details.component';
 
 
 @NgModule({
@@ -44,6 +47,9 @@ import { TollsMembersComponent } from './main/tool/tolls-members/tolls-members.c
     EventParticeptionComponent,
     PublicationMemberComponent,
     TollsMembersComponent,
+    ToolDetailsComponent,
+    PublicationDetailsComponent,
+    EventDetailsComponent,
   ],
   imports: [
     BrowserModule,

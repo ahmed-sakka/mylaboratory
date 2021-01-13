@@ -1,36 +1,40 @@
 <div class="my-16" fxLayout="row" fxLayoutAlign="end center">
     <button mat-raised-button color="primary" routerLink="create">
       <mat-icon class="s-24 mr-4">add</mat-icon>
-      Create New
+      Ajouter
     </button>
   
   </div>
   
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100-p">
     <ng-container matColumnDef="id">
-      <th mat-header-cell class="px-12" *matHeaderCellDef> ID</th>
+      <th mat-header-cell class="px-12" *matHeaderCellDef mat-sort-header> ID</th>
       <td mat-cell class="px-12" *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
   
     <ng-container matColumnDef="titre">
-      <th mat-header-cell class="px-12" *matHeaderCellDef> Titre</th>
+      <th mat-header-cell class="px-12" *matHeaderCellDef mat-sort-header> Titre</th>
       <td mat-cell class="px-12" *matCellDef="let element"> {{element.titre}} </td>
     </ng-container>
   
     <ng-container matColumnDef="type">
-      <th mat-header-cell class="px-12" *matHeaderCellDef> Type</th>
+      <th mat-header-cell class="px-12" *matHeaderCellDef mat-sort-header> Type</th>
       <td mat-cell class="px-12" *matCellDef="let element"> {{element.type}} </td>
     </ng-container>
   
     <ng-container matColumnDef="source">
       <th mat-header-cell class="px-12" *matHeaderCellDef> Source</th>
-      <td mat-cell class="px-12" *matCellDef="let element"> {{element.source}} </td>
+      <td mat-cell class="px-12" *matCellDef="let element">
+        <a [href]="element.source" target="_blank">
+          <mat-icon>picture_as_pdf</mat-icon>
+        </a>
+        </td>
     </ng-container>
     
     <ng-container matColumnDef="date">
-      <th mat-header-cell class="px-12" *matHeaderCellDef> Date de publication</th>
+      <th mat-header-cell class="px-12" *matHeaderCellDef mat-sort-header> Date de publication</th>
       <td mat-cell class="px-12" *matCellDef="let element">
-        {{element.date | date :'d MMMM y'}}
+        {{element.date | date :'dd/MM/y'}}
       </td>
     </ng-container>
     
@@ -38,20 +42,24 @@
       <th mat-header-cell class="px-12" *matHeaderCellDef> Lien </th>
       <td mat-cell class="px-12" *matCellDef="let element">
         <a [href]="element.lien" target="_blank">
-          <mat-icon>picture_as_pdf</mat-icon>
+          <mat-icon>link</mat-icon>
         </a>
       </td>
     </ng-container>
     <ng-container matColumnDef="actions" stickyEnd>
-      <th mat-header-cell class="px-12 w-130" *matHeaderCellDef></th>
-      <td mat-cell class="px-12 w-130" *matCellDef="let element">
+    
+        <th mat-header-cell class="px-12 w-160" *matHeaderCellDef></th>
+      <td mat-cell class="px-12 w-160" *matCellDef="let element">
+        <button mat-icon-button color="primary" [routerLink]="element.id">
+          <mat-icon>remove_red_eye</mat-icon>
+        </button>
         <button mat-icon-button [routerLink]="element.id + '/PublicationMembers'">
           <mat-icon>accessibility</mat-icon>
           </button>
-        <button mat-icon-button [routerLink]="element.id + '/edit'">
+        <button mat-icon-button color="accent" [routerLink]="element.id + '/edit'">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" (click)="onRemoveAccount(element.id)">
+        <button mat-icon-button color="warn" (click)="onRemoveItem(element.id)">
           <mat-icon>delete</mat-icon>
         </button>
   

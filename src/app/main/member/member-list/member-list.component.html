@@ -1,7 +1,7 @@
 <div class="my-16" fxLayout="row" fxLayoutAlign="end center">
   <button mat-raised-button color="primary" routerLink="create">
     <mat-icon class="s-24 mr-4">add</mat-icon>
-    Create New
+    Ajouter
   </button>
 
 </div>
@@ -30,13 +30,13 @@
   <ng-container matColumnDef="dateInscription">
     <th mat-header-cell class="px-12" *matHeaderCellDef> Date d'inscription</th>
     <td mat-cell class="px-12" *matCellDef="let element">
-      {{element.dateInscription | date :'d MMMM y, HH:mm'}}
+      {{element.dateInscription | date :'dd/MM/y, HH:mm'}}
     </td>
   </ng-container>
   <ng-container matColumnDef="dateNaissance">
     <th mat-header-cell class="px-12" *matHeaderCellDef> Date de naissance</th>
     <td mat-cell class="px-12" *matCellDef="let element">
-      {{element.dateNaissance | date :'d MMMM y, HH:mm'}}
+      {{element.dateNaissance | date :'dd/MM/y, HH:mm'}}
     </td>
   </ng-container>
   <ng-container matColumnDef="email">
@@ -59,9 +59,12 @@
     </td>
   </ng-container>
   <ng-container matColumnDef="actions" stickyEnd>
-    <th mat-header-cell class="px-12 w-120" *matHeaderCellDef></th>
-    <td mat-cell class="px-12 w-120" *matCellDef="let element">
-      <button mat-icon-button [routerLink]="element.id + '/edit'">
+    <th mat-header-cell class="px-12 w-160" *matHeaderCellDef></th>
+    <td mat-cell class="px-12 w-160" *matCellDef="let element">
+      <button mat-icon-button color="primary" [routerLink]="['/profile', element.id]">
+        <mat-icon>remove_red_eye</mat-icon>
+      </button>
+      <button mat-icon-button color="accent" [routerLink]="element.id + '/edit'">
         <mat-icon>edit</mat-icon>
       </button>
       <button mat-icon-button color="warn" (click)="onRemoveAccount(element.id)">

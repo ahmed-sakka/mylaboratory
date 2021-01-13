@@ -1,0 +1,52 @@
+<div class="my-16" fxLayout="row" fxLayoutAlign="end center">
+    <button mat-raised-button color="primary" routerLink="tools">
+        <mat-icon class="s-24 mr-4">reply</mat-icon>
+        Retour
+    </button>
+
+</div>
+
+<table class="table table-striped ">
+    <tbody>
+        <tr>
+            <th>ID</th>
+            <td>{{item.id}}</td>
+        </tr>
+        <tr>
+            <th>Source</th>
+            <td>
+                <a [href]="item.source" target="_blank">
+                    <mat-icon>link</mat-icon>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th>Date de publication</th>
+            <td>{{item.date | date :'dd/MM/y'}}</td>
+        </tr>
+        <tr>
+            <th>Collaborateurs</th>
+            <td>
+                Collaborateur 1
+                <button mat-icon-button color="primary" [routerLink]="">
+                    <mat-icon>remove_red_eye</mat-icon>
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <td>
+                <button mat-icon-button color="accent" [routerLink]="['edit']">
+                    <mat-icon>edit</mat-icon>
+                </button>
+
+                <button mat-icon-button color="warn" (click)="onRemoveItem(item.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </tr>
+
+
+    </tbody>
+
+</table>

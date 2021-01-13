@@ -15,6 +15,10 @@ import { EventParticeptionComponent } from './main/event/event-partiception/even
 import { PublicationMemberComponent } from './main/publication/publication-member/publication-member.component';
 import { TollsMembersComponent } from './main/tool/tolls-members/tolls-members.component';
 
+import { ToolDetailsComponent } from './main/tool/tool-details/tool-details.component';
+import { PublicationDetailsComponent } from './main/publication/publication-details/publication-details.component';
+import { EventDetailsComponent } from './main/event/event-details/event-details.component';
+
 
 const routes: Routes = [
   {
@@ -72,6 +76,11 @@ const routes: Routes = [
         component: PublicationFormComponent,
       },
       {
+        path: ':id',
+        pathMatch: 'full',
+        component: PublicationDetailsComponent,
+      },
+      {
         path: ':id/edit',
         pathMatch: 'full',
         component: PublicationFormComponent,
@@ -101,6 +110,11 @@ const routes: Routes = [
         component: EventFormComponent,
       },
       {
+        path: ':id',
+        pathMatch: 'full',
+        component: EventDetailsComponent,
+      },
+      {
         path: ':id/edit',
         pathMatch: 'full',
         component: EventFormComponent,
@@ -128,6 +142,11 @@ const routes: Routes = [
         path: 'create',
         pathMatch: 'full',
         component: ToolFormComponent,
+      },
+      {
+        path: ':id',
+        pathMatch: 'full',
+        component: ToolDetailsComponent,
       },
       {
         path: ':id/edit',

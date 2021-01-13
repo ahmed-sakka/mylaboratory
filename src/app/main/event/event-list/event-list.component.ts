@@ -1,4 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnDestroy, OnInit } from '@angular/core';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -11,18 +13,21 @@ import { EventService } from 'src/services/event.service';
   templateUrl: './event-list.component.html',
   styleUrls: ['./event-list.component.scss']
 })
-export class EventListComponent implements OnInit, OnDestroy {
-  /** Subject that emits when the component has been destroyed. */
-  protected _onDestroy = new Subject<void>();
-
-  displayedColumns: string[] = ['id', 'titre', 'date','lieu','actions'];
-  dataSource: Event[] = [];
+export class EventListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private eventService: EventService,
     private dialog: MatDialog,
   ) {
   }
+  /** Subject that emits when the component has been destroyed. */
+  protected _onDestroy = new Subject<void>();
+
+  displayedColumns: string[] = ['id', 'titre', 'lieu', 'date', 'actions'];
+  dataSource;
+
+  // Sort
+  @ViewChild(MatSort) sort: MatSort;
 
   ngOnDestroy(): void {
     this._onDestroy.next();
@@ -55,4 +60,14 @@ export class EventListComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngAfterViewInit(): void
+  {
+    this.eventService.getAllEvents().then(data => {
+      this.dataSource = new MatTableDataSource(data);
+      if (this.sort) // check it is defined.
+      {
+          this.dataSource.sort = this.sort;
+      }
+    });
+  }
 }
