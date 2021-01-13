@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { MemberService } from 'src/services/member.service';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
@@ -12,14 +12,14 @@ export class AuthenticationService {
   private host = 'http://localhost:8088';
   private jwtToken: string;
   private roles: Array<any> = [];
+  @Output() fireIsLoggedIn: EventEmitter<any> = new EventEmitter<any>(); 
   constructor(private http: HttpClient
     ){}
 
 
   // tslint:disable-next-line:typedef
   login(user){
-  return this.http.post(this.host + '/login', user , { observe: 'response'
-  });
+  return this.http.post(this.host + '/signin', user);
   }
   // tslint:disable-next-line:typedef
   register(user){
@@ -28,16 +28,21 @@ export class AuthenticationService {
   // tslint:disable-next-line:typedef
   saveToken(jwtToken){
   this.jwtToken = jwtToken;
-  localStorage.setItem('token', jwtToken);
+  localStorage.setItem('token', 'Bearer ' + jwtToken);
+  this.fireIsLoggedIn.emit();
 
 
   }
 SaveCurentUser(): Observable<any>{
 
-  const header = new HttpHeaders();
-  header.append('authorization', this.loadToken());
+  const headers = new HttpHeaders();
+  const token = this.loadToken();
+  
+  // tslint:disable-next-line:align
+  headers.append('authorization'
+    , token);
 
-  return this.http.get(this.host + '/AppUser/',  {headers: header});
+  return this.http.get(this.host + '/user/username',  {headers: headers});
 
   }
 
@@ -55,7 +60,16 @@ SaveCurentUser(): Observable<any>{
     }
     // tslint:disable-next-line:typedef
     logout(){
-    localStorage.removeItem('token');
+
+    /*const header = new HttpHeaders();
+    header.append('authorization', this.loadToken());
+    this.http.options(this.host + '/user/logout',  {headers: header}).subscribe(data => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      console.log(data);
+      this.jwtToken = '';
+     });*/
+
     }
     // tslint:disable-next-line:typedef
     isAdmin(){

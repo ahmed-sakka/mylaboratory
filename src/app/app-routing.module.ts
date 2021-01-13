@@ -1,7 +1,6 @@
 import { ProfilComponent } from './main/profil/profil.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from 'src/services/auth.guard';
 import { LoginComponent } from './main/auth/login/login.component';
 import { DashboardComponent } from './main/dashboard/dashboard.component';
 import { EventFormComponent } from './main/event/event-form/event-form.component';
@@ -12,6 +11,9 @@ import { PublicationFormComponent } from './main/publication/publication-form/pu
 import { PublicationListComponent } from './main/publication/publication-list/publication-list.component';
 import { ToolFormComponent } from './main/tool/tool-form/tool-form.component';
 import { ToolListComponent } from './main/tool/tool-list/tool-list.component';
+import { EventParticeptionComponent } from './main/event/event-partiception/event-partiception.component';
+import { PublicationMemberComponent } from './main/publication/publication-member/publication-member.component';
+import { TollsMembersComponent } from './main/tool/tolls-members/tolls-members.component';
 
 
 const routes: Routes = [
@@ -23,7 +25,6 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    canActivate: [AuthGuard],
     component: DashboardComponent,
   },
   {
@@ -33,8 +34,7 @@ const routes: Routes = [
   },
   {
     path: 'members',
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
+   
     children: [
       {
         path: '',
@@ -59,8 +59,7 @@ const routes: Routes = [
   },
   {
     path: 'publications',
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
+   
     children: [
       {
         path: '',
@@ -78,6 +77,11 @@ const routes: Routes = [
         component: PublicationFormComponent,
       },
       {
+        path: ':id/PublicationMembers',
+        pathMatch: 'full',
+        component: PublicationMemberComponent,
+      },
+      {
         path: '**',
         redirectTo: '',
       },
@@ -85,8 +89,6 @@ const routes: Routes = [
   },
   {
     path: 'events',
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
@@ -104,6 +106,11 @@ const routes: Routes = [
         component: EventFormComponent,
       },
       {
+        path: ':id/participation',
+        pathMatch: 'full',
+        component: EventParticeptionComponent,
+      },
+      {
         path: '**',
         redirectTo: '',
       },
@@ -111,8 +118,6 @@ const routes: Routes = [
   },
   {
     path: 'tools',
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
@@ -128,6 +133,11 @@ const routes: Routes = [
         path: ':id/edit',
         pathMatch: 'full',
         component: ToolFormComponent,
+      },
+      {
+        path: ':id/toolsMembers',
+        pathMatch: 'full',
+        component: TollsMembersComponent,
       },
       {
         path: '**',

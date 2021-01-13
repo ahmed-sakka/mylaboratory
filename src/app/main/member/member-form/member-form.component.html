@@ -5,7 +5,7 @@
     <mat-form-field appearance="fill" >
         <mat-label>Choose one</mat-label>
         <mat-select [(ngModel)]="selectedValue">
-          <mat-option  selected value="etudiant">Etudiant</mat-option>
+          <mat-option  selected="true" value="etudiant">Etudiant</mat-option>
           <mat-option value="ens">Enseignant</mat-option>
         </mat-select>
   
@@ -14,7 +14,7 @@
 
     <form *ngIf="isStudent"[formGroup]="form" (ngSubmit)="onSubmit()" class="form">
 
-        <mat-form-field>
+        <mat-form-field style="width:400px !important">
             <input matInput placeholder="CIN" formControlName="cin">
         </mat-form-field>
 

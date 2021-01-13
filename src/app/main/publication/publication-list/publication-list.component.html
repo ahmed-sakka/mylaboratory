@@ -43,8 +43,11 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="actions" stickyEnd>
-      <th mat-header-cell class="px-12 w-120" *matHeaderCellDef></th>
-      <td mat-cell class="px-12 w-120" *matCellDef="let element">
+      <th mat-header-cell class="px-12 w-130" *matHeaderCellDef></th>
+      <td mat-cell class="px-12 w-130" *matCellDef="let element">
+        <button mat-icon-button [routerLink]="element.id + '/PublicationMembers'">
+          <mat-icon>accessibility</mat-icon>
+          </button>
         <button mat-icon-button [routerLink]="element.id + '/edit'">
           <mat-icon>edit</mat-icon>
         </button>

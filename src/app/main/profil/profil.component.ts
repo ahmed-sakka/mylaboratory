@@ -17,7 +17,7 @@ export class ProfilComponent implements OnInit {
       this.mumberService.getFullMember(params.id).then(
       data => {this.fullUser = data;
 
-               console.log(this.fullUser);
+               console.log("full"+this.fullUser);
       })
 
      );

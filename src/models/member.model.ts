@@ -16,4 +16,4 @@ export interface Member {
   type_mbr: string;
   type: string;
   }
-  
+

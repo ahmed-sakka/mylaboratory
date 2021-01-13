@@ -2,7 +2,6 @@ import { User } from './../../../../models/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/services/auth.service';
 import { AuthenticationService } from 'src/services/authentication.service';
 
 @Component({
@@ -29,7 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
     this.loginForm = this.fb.group({
-      userName: [this.user?.userName, Validators.required],
+      username: [this.user?.username, Validators.required],
     password: [this.user?.password, Validators.required]
 
    });
@@ -44,13 +43,14 @@ export class LoginComponent implements OnInit {
     console.log(userObject);
     this.authService.login(userObject)
         .subscribe(resp => {
-          const jwtToken = resp.headers.get('authorization');
-          this.authService.saveToken(jwtToken);
-         
-        this.router.navigateByUrl('/');
+          console.log(resp);
+          this.authService.saveToken((resp as any).accessToken);
+          localStorage.setItem("email", (resp as any).user.email);
+          this.authService.fireIsLoggedIn.emit();
+          this.router.navigateByUrl('/');
         },
         err => {
-        console.log(err)
+        console.log(err);
         this.mode = 1;
         });
 

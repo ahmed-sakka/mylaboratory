@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/services/auth.service';
 import { AuthenticationService } from 'src/services/authentication.service';
 import { MemberService } from 'src/services/member.service';
 
@@ -12,8 +11,11 @@ import { MemberService } from 'src/services/member.service';
 })
 export class LayoutComponent implements OnInit {
 
-  isLoggedIn: boolean;
+  isLoggedIn: boolean = true;
   user: any;
+  email: string = localStorage.getItem('email');
+
+
 
   constructor(
     private authService: AuthenticationService,
@@ -23,23 +25,35 @@ export class LayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.SaveCurentUser().subscribe(data => {
+   this.authService.fireIsLoggedIn.subscribe(res => {
+    const  email = localStorage.getItem("email");
+    console.log(email);
+    this.MemberSrvice.getMemberByEmail(email).then(resp => {
+       console.log(resp)
+          this.user = resp;
+          localStorage.setItem('user', JSON.stringify(this.user));
+          this.isLoggedIn = true;
+        });
 
-      this.MemberSrvice.getMemberByEmail(data._embedded.appUsers[0].userName).then(resp => {
-        this.user = resp;
-        localStorage.setItem('user', JSON.stringify(this.user));
-
-        this.isLoggedIn = true;
-
-
-      });
 
     });
+    if(this.email != null)
+    { 
+    this.MemberSrvice.getMemberByEmail(this.email).then(resp => {
+     
+         this.user = resp;
+         localStorage.setItem('user', JSON.stringify(this.user));
+         this.isLoggedIn = true;
+       });
+
+    }
+   
   }
   // tslint:disable-next-line:typedef
   logout(){
     this.authService.logout();
     this.router.navigateByUrl('/login');
+
   }
 
 

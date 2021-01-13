@@ -20,6 +20,7 @@ export class EventService {
     private httpClient: HttpClient,
     private authService: AuthenticationService
   ) {
+    console.log(this.authService.loadToken());
     this.headers.append('authorization'
     , this.authService.loadToken());
   }
@@ -56,6 +57,7 @@ export class EventService {
   removeEventById(id: string): Promise<void> {
     return this.httpClient.delete<void>(`${this.path}/evenements/${id}`).toPromise();
   }
+
 
 
 }

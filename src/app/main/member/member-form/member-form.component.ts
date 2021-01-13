@@ -13,7 +13,7 @@ export class MemberFormComponent implements OnInit {
   currentItemId: string;
   item: Member;
   form: FormGroup;
-  selectedValue;
+  selectedValue = 'etudiant';
   isStudent = false;
   isEns = false;
   constructor(

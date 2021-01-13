@@ -20,13 +20,13 @@ export class MemberService {
     private authService: AuthenticationService
   ) {
 
-    this.headers.append('authorization'
+    this.headers.append('Authorization'
     , this.authService.loadToken());
   }
 
   // tslint:disable-next-line:typedef
   getAllMembers() {
-     return this.httpClient.get<Member[]>(`${this.path}/membres`, {headers: this.headers}).toPromise();
+     return this.httpClient.get<Member[]>(`${this.path}/membres`, {headers: this.headers[0]}).toPromise();
   }
 
   getMemberById(id: string): Promise<Member> {
@@ -39,7 +39,7 @@ export class MemberService {
    */
   saveMemberEtudiant(member: any): Promise<Member> {
    member.type = 'etudiant';
-    if (!!member.id) {
+   if (!!member.id) {
       return this.updateMemberEtudiant(member.id, member);
     } else {
       return this.createMemberEtudiant(member);
@@ -72,16 +72,27 @@ export class MemberService {
 
 
   removeMemberById(id: string): Promise<void> {
-    return this.httpClient.delete<void>(`${this.path}/membres/${id}` , {headers: this.headers}).toPromise();
+    return this.httpClient.delete<void>(`${this.path}/membres/${id}` , {headers: this.headers[0]}).toPromise();
   }
   getMemberByEmail(email: string): Promise<Member> {
-    return this.httpClient.get<Member>(`${this.path}/membres/searchEmail/${email}` , {headers: this.headers}).toPromise();
+    return this.httpClient.get<Member>(`${this.path}/membres/searchEmail/${email}` , {headers: this.headers[0]}).toPromise();
 
   }
   getFullMember(id: number): Promise<any>{
-    return this.httpClient.get<any>(`${this.path}/fullmember/${id}` , {headers: this.headers}).toPromise();
+    return this.httpClient.get<any>(`${this.path}/membres/fullmember/${id}` , {headers: this.headers[0]}).toPromise();
 
 
+
+  }
+  getEventParticipent(id: string): Promise<Member[]> {
+    return this.httpClient.get<Member[]>(`${this.path}/membres/findWithEventId/${id}`).toPromise();
+
+  }
+  getOutilMembers(id: string): Promise<Member[]> {
+    return this.httpClient.get<Member[]>(`${this.path}/membres/findWithoutilId/${id}`).toPromise();
+
+  }getPublicationmember(id: string): Promise<Member[]> {
+    return this.httpClient.get<Member[]>(`${this.path}/membres/findWithPubId/${id}`).toPromise();
 
   }
 

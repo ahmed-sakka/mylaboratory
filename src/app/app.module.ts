@@ -18,10 +18,12 @@ import { PublicationListComponent } from './main/publication/publication-list/pu
 import { PublicationFormComponent } from './main/publication/publication-form/publication-form.component';
 import { FirebaseModule } from 'src/@root/firebase/firebase.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from 'src/services/token.interceptor';
 import { LoginComponent } from './main/auth/login/login.component';
 import { AuthenticationService } from 'src/services/authentication.service';
 import { ProfilComponent } from './main/profil/profil.component';
+import { EventParticeptionComponent } from './main/event/event-partiception/event-partiception.component';
+import { PublicationMemberComponent } from './main/publication/publication-member/publication-member.component';
+import { TollsMembersComponent } from './main/tool/tolls-members/tolls-members.component';
 
 
 @NgModule({
@@ -39,6 +41,9 @@ import { ProfilComponent } from './main/profil/profil.component';
     PublicationFormComponent,
     LoginComponent,
     ProfilComponent,
+    EventParticeptionComponent,
+    PublicationMemberComponent,
+    TollsMembersComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,11 +54,7 @@ import { ProfilComponent } from './main/profil/profil.component';
     HttpClientModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    },
+    
     AuthenticationService
   ],
   bootstrap: [AppComponent]
