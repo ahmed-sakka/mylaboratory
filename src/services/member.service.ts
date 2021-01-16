@@ -116,16 +116,16 @@ export class MemberService {
   }
 
   deleteAffecterOutil(outilId: number , memberId: number): Promise<any> {
-    return this.httpClient.get(`${this.path}/membres/deleteOutilaffectation/${outilId}/${memberId}`).toPromise();
+    return this.httpClient.delete(`${this.path}/membres/deleteOutilaffectation/${outilId}/${memberId}`).toPromise();
 
   }
 
   deleteAffecterEvent(eventId: number , memberId: number): Promise<any> {
-    return this.httpClient.get(`${this.path}/membres/deletepublicationaffectation/${eventId}/${memberId}`).toPromise();
+    return this.httpClient.delete(`${this.path}/membres/deleteEventaffectation/${eventId}/${memberId}`).toPromise();
 
   }
   deleteAffecterPublication(pubId: number , memberId: number): Promise<any> {
-    return this.httpClient.get(`${this.path}/membres/deleteEventaffectation/${pubId}/${memberId}`).toPromise();
+    return this.httpClient.delete(`${this.path}/membres/deletepublicationaffectation/${pubId}/${memberId}`).toPromise();
 
   }
 

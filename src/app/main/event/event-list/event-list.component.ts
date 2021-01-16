@@ -21,6 +21,7 @@ export class EventListComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {
   }
   /** Subject that emits when the component has been destroyed. */
+  // tslint:disable-next-line:variable-name
   protected _onDestroy = new Subject<void>();
 
   displayedColumns: string[] = ['id', 'titre', 'lieu', 'date', 'actions'];
