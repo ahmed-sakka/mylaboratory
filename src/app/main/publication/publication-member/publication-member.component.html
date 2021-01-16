@@ -1,6 +1,23 @@
 
 <div class="my-16" fxLayout="row" fxLayoutAlign="end center">
-   
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Member</mat-label>
+      <input type="text"
+             placeholder="Pick one"
+             aria-label="Member"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto"
+             (keyup.enter)="affecter()"
+             >
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id">
+          {{option.cin}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
   
 </div>
 
@@ -59,7 +76,9 @@
   <ng-container matColumnDef="actions" stickyEnd>
     <th mat-header-cell class="px-12 w-120" *matHeaderCellDef></th>
     <td mat-cell class="px-12 w-120" *matCellDef="let element">
-     
+      <button mat-icon-button color="warn" (click)="onRemoveAffectation(element.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
 
     </td>
   </ng-container>
