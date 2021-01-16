@@ -1,4 +1,5 @@
 export interface Member {
+  adress: any;
   etablissement: any;
   id: string;
   cin: string;
@@ -15,5 +16,6 @@ export interface Member {
   etablisssement: string;
   type_mbr: string;
   type: string;
+  encadrant : Member;
   }
 
