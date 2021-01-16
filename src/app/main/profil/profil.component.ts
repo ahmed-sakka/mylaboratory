@@ -10,17 +10,24 @@ import { Component, OnInit } from '@angular/core';
 export class ProfilComponent implements OnInit {
 
   public fullUser ;
-  constructor(private mumberService: MemberService , private activayeRouter: ActivatedRoute) { }
+  public ens;
+  constructor(private memberService: MemberService , private activayeRouter: ActivatedRoute) { }
 
   ngOnInit(): void {
-     this.activayeRouter.params.subscribe(params =>
-      this.mumberService.getFullMember(params.id).then(
-      data => {this.fullUser = data;
+    this.ens = JSON.parse(localStorage.getItem('user'));
 
-               console.log("full"+this.fullUser);
+    this.activayeRouter.params.subscribe(params =>
+      this.memberService.getFullMember(params.id).then(
+      data => { 
+        this.fullUser = data;
+      
       })
 
      );
   }
+encadrer()
+{
+  this.memberService.encadrer(this.fullUser.id,this.ens.id);
 
+}
 }
