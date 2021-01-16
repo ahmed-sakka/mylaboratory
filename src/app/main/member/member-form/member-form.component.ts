@@ -14,8 +14,11 @@ export class MemberFormComponent implements OnInit {
   item: Member;
   form: FormGroup;
   selectedValue = 'etudiant';
+  selectedEnc : Member ;
+  encadrants;
   isStudent = false;
   isEns = false;
+  showSubmit = true;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -26,17 +29,31 @@ export class MemberFormComponent implements OnInit {
   ngOnInit(): void {
     this.currentItemId = this.activatedRoute.snapshot.params.id;
     if (!!this.currentItemId) {
+      this.showSubmit = false;
       this.memberService.getMemberById(this.currentItemId).then(item => {
+
         this.item = item;
         if (item.type === 'etudiant'){
+        this.memberService.getAllTeachers().then(data => {
+          this.encadrants = data;
+          if ( this.item.encadrant !== null){
+          this.selectedEnc = data.find(encadrant => this.item.encadrant.id === encadrant.id);
+          }
           this.isStudent = true ;
           this.initFormEtudiant(item);
+        });
         }else{
           this.isEns = true ;
           this.initFormEns(item);
         }
       });
-    } 
+    }else{
+      this.memberService.getAllTeachers().then(data => {
+        this.encadrants = data;
+        console.log(this.encadrants);
+      });
+
+    }
   }
 
   private initFormEtudiant(item: Member): void {
@@ -49,7 +66,10 @@ export class MemberFormComponent implements OnInit {
       email: new FormControl(item?.email, [Validators.required]),
       password: new FormControl(item?.password, [Validators.required]),
       diplome: new FormControl(item?.diplome, [Validators.required]),
-      dateInscription: new FormControl(item?.dateInscription, [Validators.required]),
+      adress: new FormControl(item?.adress, [Validators.required]),
+
+      encadrant: new FormControl(item?.encadrant),
+
 
     });
   }
@@ -70,6 +90,7 @@ export class MemberFormComponent implements OnInit {
 
   onSubmit(): void { 
     const objectToSubmit: Member = {...this.item, ...this.form.value};
+    objectToSubmit.dateInscription = Date.now().toString();
     if(this.selectedValue === 'etudiant') {
     this.memberService.saveMemberEtudiant(objectToSubmit).then(() => this.router.navigate(['./members']));
     }
@@ -90,6 +111,8 @@ export class MemberFormComponent implements OnInit {
       this.isEns = true;
       this.initFormEns(null);
     }
+    this.showSubmit = false;
+
   }
   
 }

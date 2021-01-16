@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {GLOBAL} from '../app/app-config';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Member } from 'src/models/member.model';
 import { environment } from 'src/environments/environment';
 import { AuthenticationService } from './authentication.service';
@@ -32,7 +32,13 @@ export class MemberService {
   getMemberById(id: string): Promise<Member> {
     return this.httpClient.get<Member>(`${this.path}/membres/${id}`, {headers: this.headers}).toPromise();
   }
-
+  encadrer(idStudent, idEns): any{
+    return this.httpClient.put<Member>(`${this.path}/membres/etudiant/${idStudent}/${idEns}`,
+    {headers: this.headers}).toPromise();
+}
+  getAllTeachers() {
+    return this.httpClient.get<Member[]>(`${this.path}/membres/enseignant`, {headers: this.headers[0]}).toPromise();
+ }
   /**
    * create a new member or update an old member.
    * a new member doesn't have an id
