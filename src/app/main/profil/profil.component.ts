@@ -11,6 +11,7 @@ export class ProfilComponent implements OnInit {
 
   public fullUser ;
   public ens;
+  encadre = false ;
   constructor(private memberService: MemberService , private activayeRouter: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -20,17 +21,16 @@ export class ProfilComponent implements OnInit {
       this.memberService.getFullMember(params.id).then(
       data => {
         this.fullUser = data;
+        this.encadre = this.fullUser.encadrant === undefined || this.fullUser.encadrant === null;
       })
 
      );
   }
  encadrer()
 {
-  if(this.fullUser.encadrant.id){
-    const msg = 'L\'etudiant est déja affecté à un autre enseignant';
-    alert(msg);
-  }else{
-  this.memberService.encadrer(this.fullUser.id, this.ens.id);
-  }
-}
+ 
+  this.memberService.encadrer(this.fullUser.id, this.ens.id).then(res => {
+  this.encadre = false ;
+
+  });}
 }

@@ -33,7 +33,7 @@ export class MemberService {
   getMemberById(id: string): Promise<Member> {
     return this.httpClient.get<Member>(`${this.path}/membres/${id}`, {headers: this.headers}).toPromise();
   }
-  encadrer(idStudent, idEns): any{
+  encadrer(idStudent, idEns): Promise<any>{
     return this.httpClient.put<Member>(`${this.path}/membres/etudiant/${idStudent}/${idEns}`,
     {headers: this.headers}).toPromise();
 }
