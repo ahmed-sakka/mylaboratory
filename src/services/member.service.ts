@@ -30,8 +30,8 @@ export class MemberService {
      return this.httpClient.get<Member[]>(`${this.path}/membres`, {headers: this.headers[0]}).toPromise();
   }
   // tslint:disable-next-line:typedef
-  getAllEncadrements() {
-    return this.httpClient.get<Member[]>(`${this.path}/membres`, {headers: this.headers[0]}).toPromise();
+  getAllEncadrements(id): Promise<Member[]> {
+    return this.httpClient.get<Member[]>(`${this.path}/membres/getEncadreStudent/${id}`, {headers: this.headers[0]}).toPromise();
  }
 
   getMemberById(id: string): Promise<Member> {

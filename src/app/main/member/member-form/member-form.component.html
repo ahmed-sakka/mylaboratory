@@ -33,7 +33,6 @@
             <input matInput placeholder="Nom" formControlName="nom">
         </mat-form-field>
 
-
         <mat-form-field appearance="fill">
             <mat-label>Choose an option</mat-label>
             <mat-select  formControlName="diplome">
@@ -72,7 +71,9 @@
           <br>
           <label>photo</label>
           <input formControlName="photo" type="file" name="photo" class="form-control" (change)="onFileChange($event)" id="photo">
-   <br>
+
+          <br>
+  		<img [src]="imageSrc" *ngIf="imageSrc" style="height:150px; width:200px">
 
         <div class="form-element">
             <button mat-raised-button color="primary" type="submit" class="button"

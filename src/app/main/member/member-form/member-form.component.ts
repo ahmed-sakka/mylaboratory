@@ -119,6 +119,7 @@ export class MemberFormComponent implements OnInit {
 
   onSubmit(): void { 
     const objectToSubmit: Member = {...this.item, ...this.form.value};
+    objectToSubmit.photo = this.imageSrc;
     objectToSubmit.dateInscription = Date.now().toString();
     if ( this.selectedValue === 'etudiant') {
     this.memberService.saveMemberEtudiant(objectToSubmit).then(() => {

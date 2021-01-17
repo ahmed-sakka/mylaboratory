@@ -13,7 +13,7 @@ export class EncadrementsComponent implements OnInit {
   // tslint:disable-next-line:variable-name
   protected _onDestroy = new Subject<void>();
 
-  displayedColumns: string[] = ['id', 'cin', 'nom', 'diplome' , 'email', 'dateNaissance', 'dateInscription', 'cv', 'type', 'actions'];
+  displayedColumns: string[] = ['id', 'cin', 'nom', 'diplome' , 'email', 'dateNaissance', 'dateInscription', 'cv',  'actions'];
   dataSource: Member[] = [];
 
   constructor(
@@ -33,8 +33,11 @@ export class EncadrementsComponent implements OnInit {
   }
 
   fetchDataSource(): void {
-    this.memberService.getAllEncadrements().then(data => {
+    const user = JSON.parse(localStorage.getItem('user')) as Member;
+    const id = (user as unknown as Member).id;
+    this.memberService.getAllEncadrements(id).then(data => {
       this.dataSource = data;
-    });
+      console.log(data[0]);
+      });
   }
 }
