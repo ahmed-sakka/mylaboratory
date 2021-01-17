@@ -26,7 +26,9 @@ export class EventListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   displayedColumns: string[] = ['id', 'titre', 'lieu', 'date', 'actions'];
   dataSource;
-  isAuthorized = false ;
+  isUser = false;
+  isAdmin = false;
+  isAuthorized = false;
 
   // Sort
   @ViewChild(MatSort) sort: MatSort;
@@ -44,7 +46,9 @@ export class EventListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.eventService.getAllEvents().then(data => {
       this.dataSource = data;
       const role = localStorage.getItem('role');
-      this.isAuthorized = role === 'ROLE_ADMIN' || role === 'ROLE_USER';
+      this.isAdmin = role === 'ROLE_ADMIN'; 
+      this.isUser = role === 'ROLE_USER';
+      this.isAuthorized = role === 'ROLE_ADMIN' || role === 'ROLE_USER'; 
 
     });
   }
