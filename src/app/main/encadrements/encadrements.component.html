@@ -1,0 +1,60 @@
+<p>Liste des étudiants</p>
+ 
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell class="px-12" *matHeaderCellDef> ID</th>
+      <td mat-cell class="px-12" *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="cin">
+      <th mat-header-cell class="px-12" *matHeaderCellDef> CIN</th>
+      <td mat-cell class="px-12" *matCellDef="let element"> {{element.cin}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="nom">
+      <th mat-header-cell class="px-12" *matHeaderCellDef> Nom</th>
+      <td mat-cell class="px-12" *matCellDef="let element"> {{element.prenom + ' ' + element.nom}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="diplome">
+      <th mat-header-cell class="px-12" *matHeaderCellDef> Diplome</th>
+      <td mat-cell class="px-12" *matCellDef="let element"> {{element.diplome}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="dateInscription">
+      <th mat-header-cell class="px-12" *matHeaderCellDef> Date d'inscription</th>
+      <td mat-cell class="px-12" *matCellDef="let element">
+        {{element.dateInscription | date :'dd/MM/y, HH:mm'}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="dateNaissance">
+      <th mat-header-cell class="px-12" *matHeaderCellDef> Date de naissance</th>
+      <td mat-cell class="px-12" *matCellDef="let element">
+        {{element.dateNaissance | date :'dd/MM/y, HH:mm'}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell class="px-12" *matHeaderCellDef> Email</th>
+      <td mat-cell class="px-12" *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+    <ng-container matColumnDef="cv">
+      <th mat-header-cell class="px-12" *matHeaderCellDef> CV</th>
+      <td mat-cell class="px-12" *matCellDef="let element">
+        <a [href]="element.cv" target="_blank">
+          <mat-icon>picture_as_pdf</mat-icon>
+        </a>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="actions" stickyEnd>
+      <th mat-header-cell class="px-12 w-160" *matHeaderCellDef></th>
+      <td mat-cell class="px-12 w-160" *matCellDef="let element">
+        <button mat-icon-button color="primary" [routerLink]="['/profile', element.id]">
+          <mat-icon>remove_red_eye</mat-icon>
+        </button>
+  
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>

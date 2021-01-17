@@ -61,14 +61,7 @@ SaveCurentUser(): Observable<any>{
     // tslint:disable-next-line:typedef
     logout(){
 
-    /*const header = new HttpHeaders();
-    header.append('authorization', this.loadToken());
-    this.http.options(this.host + '/user/logout',  {headers: header}).subscribe(data => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      console.log(data);
-      this.jwtToken = '';
-     });*/
+    localStorage.clear();
 
     }
     // tslint:disable-next-line:typedef

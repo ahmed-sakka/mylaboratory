@@ -45,6 +45,10 @@
             <mat-icon>account_box</mat-icon>
             <a routerLink="/profile/{{user?.id}}">Profil</a>
           </button>
+          <button class="" mat-menu-item *ngIf="this.user.type === 'user' "> 
+            <mat-icon>account_box</mat-icon>
+            <a routerLink="/encadrements">encadrements</a>
+          </button>
           <button class="" mat-menu-item (click)="logout()">
             <mat-icon>exit_to_app</mat-icon>
             <span>Déconnection</span>

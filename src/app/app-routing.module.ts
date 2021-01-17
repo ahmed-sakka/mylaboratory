@@ -1,3 +1,4 @@
+import { EncadrementsComponent } from './main/encadrements/encadrements.component';
 import { ProfilComponent } from './main/profil/profil.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -35,6 +36,11 @@ const routes: Routes = [
     path: 'login',
     pathMatch: 'full',
     component: LoginComponent,
+  },
+  {
+    path: 'encadrements',
+    pathMatch: 'full',
+    component: EncadrementsComponent,
   },
   {
     path: 'members',
