@@ -2,7 +2,7 @@
 
   <!-- The side nav -->
   <mat-sidenav #drawer fixedInViewport="true" mode="over" opened="false" style="width: 230px;">
-    <div *ngIf="!!isLoggedIn">
+    <div>
       <mat-toolbar color="primary" fxLayout fxLayoutGap="16px">
         <mat-icon>school</mat-icon>
         <span>Laboratoire</span>
@@ -20,7 +20,7 @@
 
   <!-- Side nav content-->
   <mat-sidenav-content>
-    <mat-toolbar color="primary" *ngIf="!!isLoggedIn">
+    <mat-toolbar color="primary" >
       <div fxFlex fxLayout fxLayoutAlign="start center">
         <button type="button" aria-label="Toggle sidenav" class="toolbar-button" mat-icon-button
           (click)="drawer.toggle()">
@@ -31,19 +31,23 @@
         <div fxFlex></div>
 
         <div class="toolbar-separator"></div>
-        <button [matMenuTriggerFor]="userMenu" class="toolbar-button" mat-button>
+        <div *ngIf="isLoggedIn">
+        <button [matMenuTriggerFor]="userMenu" class="toolbar-button" mat-button >
           <div fxLayout="row" fxLayoutAlign="center center" *ngIf="!!user">
-            <img class="avatar mr-0 mr-sm-16" [src]="user?.photoURL">
+            <img class="avatar mr-0 mr-sm-16" [src]="user?.photo">
             <span class="username mx-12" fxHide fxShow.gt-sm>{{user?.email}}</span>
             <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
           </div>
         </button>
-
-        <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
+        <mat-menu #userMenu="matMenu" [overlapTrigger]="false" >
 
           <button class="" mat-menu-item>
             <mat-icon>account_box</mat-icon>
             <a routerLink="/profile/{{user?.id}}">Profil</a>
+          </button>
+          <button class="" mat-menu-item *ngIf="this.user.type === 'ens' "> 
+            <mat-icon>account_box</mat-icon>
+            <a routerLink="/encadrements">encadrements</a>
           </button>
           <button class="" mat-menu-item (click)="logout()">
             <mat-icon>exit_to_app</mat-icon>
@@ -52,9 +56,17 @@
 
         </mat-menu>
       </div>
+        <button (click)="gotologin()" class="toolbar-button" mat-button *ngIf="!isLoggedIn">
+          <span class="username mx-12" fxHide fxShow.gt-sm>Login</span>
+      
+          
+        </button>
+
+     
+      </div>
     </mat-toolbar>
 
-    <div class="content" [ngClass]="!!isLoggedIn ? 'mt-80 mx-16' : ''">
+    <div class="content" class="mt-80 mx-16 pt-3">
       <router-outlet></router-outlet>
 
     </div>

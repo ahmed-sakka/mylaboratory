@@ -29,6 +29,10 @@ export class MemberService {
   getAllMembers() {
      return this.httpClient.get<Member[]>(`${this.path}/membres`, {headers: this.headers[0]}).toPromise();
   }
+  // tslint:disable-next-line:typedef
+  getAllEncadrements() {
+    return this.httpClient.get<Member[]>(`${this.path}/membres`, {headers: this.headers[0]}).toPromise();
+ }
 
   getMemberById(id: string): Promise<Member> {
     return this.httpClient.get<Member>(`${this.path}/membres/${id}`, {headers: this.headers}).toPromise();

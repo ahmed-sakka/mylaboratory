@@ -122,7 +122,9 @@
           <br>
           <label>photo</label>
           <input formControlName="photo" type="file" name="photo" class="form-control" (change)="onFileChange($event)" id="photo">
-   <br>
+  		<img [src]="imageSrc" *ngIf="imageSrc" style="height:150px; width:200px">
+
+          <br>
         <div class="form-element">
             <button mat-raised-button color="primary" type="submit" class="button"
                 [disabled]="form.invalid">

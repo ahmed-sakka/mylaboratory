@@ -27,6 +27,7 @@ import { TollsMembersComponent } from './main/tool/tolls-members/tolls-members.c
 import { ToolDetailsComponent } from './main/tool/tool-details/tool-details.component';
 import { PublicationDetailsComponent } from './main/publication/publication-details/publication-details.component';
 import { EventDetailsComponent } from './main/event/event-details/event-details.component';
+import { EncadrementsComponent } from './main/encadrements/encadrements.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { EventDetailsComponent } from './main/event/event-details/event-details.
     ToolDetailsComponent,
     PublicationDetailsComponent,
     EventDetailsComponent,
+    EncadrementsComponent,
   ],
   imports: [
     BrowserModule,

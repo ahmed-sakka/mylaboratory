@@ -11,7 +11,7 @@ import { MemberService } from 'src/services/member.service';
 })
 export class LayoutComponent implements OnInit {
 
-  isLoggedIn: boolean = true;
+  isLoggedIn = false;
   user: any;
   email: string = localStorage.getItem('email');
 
@@ -52,8 +52,12 @@ export class LayoutComponent implements OnInit {
   // tslint:disable-next-line:typedef
   logout(){
     this.authService.logout();
+    this.isLoggedIn= false;
     this.router.navigateByUrl('/login');
 
+  }
+  gotologin(){
+    this.router.navigateByUrl('/login');
   }
 
 
