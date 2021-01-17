@@ -19,7 +19,7 @@ export class ToolListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   displayedColumns: string[] = ['id','source', 'date' , 'actions'];
   dataSource;
-  isAdmin = false ;
+  isAuthorized = false ;
 
   constructor(
     private toolService: ToolService,
@@ -40,8 +40,8 @@ export class ToolListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.toolService.getAllTools().then(data => {
       this.dataSource = data;
       const role = localStorage.getItem('role');
-      this.isAdmin = role === 'ROLE_ADMIN';
-      if (this.isAdmin) {
+      this.isAuthorized = role === 'ROLE_ADMIN' || role === 'ROLE_USER';
+      if (this.isAuthorized) {
       this.displayedColumns =  ['id','source', 'date' , 'actions'];
       }
       
