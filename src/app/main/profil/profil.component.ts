@@ -18,16 +18,19 @@ export class ProfilComponent implements OnInit {
 
     this.activayeRouter.params.subscribe(params =>
       this.memberService.getFullMember(params.id).then(
-      data => { 
+      data => {
         this.fullUser = data;
-      
       })
 
      );
   }
-encadrer()
+ encadrer()
 {
-  this.memberService.encadrer(this.fullUser.id,this.ens.id);
-
+  if(this.fullUser.encadrant.id){
+    const msg = 'L\'etudiant est déja affecté à un autre enseignant';
+    alert(msg);
+  }else{
+  this.memberService.encadrer(this.fullUser.id, this.ens.id);
+  }
 }
 }

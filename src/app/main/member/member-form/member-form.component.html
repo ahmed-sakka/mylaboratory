@@ -49,22 +49,25 @@
         <mat-form-field>
             <input matInput placeholder="Date de naissance" formControlName="dateNaissance" type="date">
         </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="photo" formControlName="photo" type="file">
-        </mat-form-field>
+    
+         
+     
 
         <mat-form-field>
             <input matInput placeholder="CV" formControlName="cv">
         </mat-form-field>
-
-
-        <mat-form-field class="example-full-width">
+  <mat-form-field class="example-full-width">
             <mat-label>Encadrant CIN</mat-label>
             <mat-select formControlName="encadrant" [(ngModel)]="selectedEnc">
               <mat-option
                 *ngFor="let encadrant of encadrants" [value]="encadrant">{{encadrant.nom}}</mat-option>
             </mat-select>
           </mat-form-field>
+          <br>
+          <label>photo</label>
+          <input formControlName="photo" type="file" name="photo" class="form-control" (change)="onFileChange($event)" id="photo">
+   <br>
+
         <div class="form-element">
             <button mat-raised-button color="primary" type="submit" class="button"
                 [disabled]="form.invalid">
@@ -110,6 +113,10 @@
             <input matInput placeholder="etablissement" formControlName="etablissement">
         </mat-form-field>
 
+          <br>
+          <label>photo</label>
+          <input formControlName="photo" type="file" name="photo" class="form-control" (change)="onFileChange($event)" id="photo">
+   <br>
         <div class="form-element">
             <button mat-raised-button color="primary" type="submit" class="button"
                 [disabled]="form.invalid">
