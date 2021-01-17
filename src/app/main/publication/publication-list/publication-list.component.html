@@ -48,12 +48,12 @@
     </ng-container>
     <ng-container matColumnDef="actions" stickyEnd >
     
-        <th mat-header-cell class="px-12 w-160" *matHeaderCellDef></th>
-      <td mat-cell class="px-12 w-160" *matCellDef="let element">
+        <th mat-header-cell class="px-12 w-200" *matHeaderCellDef></th>
+      <td mat-cell class="px-12 w-200" *matCellDef="let element">
         <button mat-icon-button color="primary" [routerLink]="element.id">
           <mat-icon>remove_red_eye</mat-icon>
         </button>
-        <button mat-icon-button [routerLink]="element.id + '/PublicationMembers'" *ngIf="isAdmin">
+        <button mat-icon-button [routerLink]="element.id + '/PublicationMembers'">
           <mat-icon>people</mat-icon>
           </button>
         <button mat-icon-button color="accent" [routerLink]="element.id + '/edit'" *ngIf="isAdmin">

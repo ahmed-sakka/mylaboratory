@@ -25,17 +25,12 @@
             <td>{{item.date | date :'dd/MM/y'}}</td>
         </tr>
         <tr>
-            <th>Collaborateurs</th>
-            <td>
-                Collaborateur 1
-                <button mat-icon-button color="primary" [routerLink]="">
-                    <mat-icon>remove_red_eye</mat-icon>
-                </button>
-            </td>
-        </tr>
-        <tr>
             <th></th>
             <td>
+                <button mat-icon-button [routerLink]="'toolsMembers'">
+                    <mat-icon>people</mat-icon>
+                </button>
+
                 <button mat-icon-button color="accent" [routerLink]="['edit']">
                     <mat-icon>edit</mat-icon>
                 </button>
