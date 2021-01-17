@@ -19,6 +19,8 @@ export class MemberFormComponent implements OnInit {
   isStudent = false;
   isEns = false;
   showSubmit = true;
+  imageSrc: string;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -72,6 +74,7 @@ export class MemberFormComponent implements OnInit {
       encadrant: new FormControl(item?.encadrant),
 
 
+      imageSrc: new FormControl('', Validators.required)
     });
   }
   private initFormEns(item: Member): void {
@@ -88,6 +91,7 @@ export class MemberFormComponent implements OnInit {
 
       etablissement: new FormControl(item?.etablissement, [Validators.required]),
 
+      imageSrc: new FormControl('', Validators.required)
     });
   }
   
@@ -98,7 +102,15 @@ export class MemberFormComponent implements OnInit {
 		  const [image] = event.target.files;
 		  reader.readAsDataURL(image);
 
-		}
+      reader.onload = () => {
+ 
+        this.imageSrc = reader.result as string;
+        
+        this.form.patchValue({
+          imageSrc: reader.result
+        });
+    }
+  }
 	}
 
   onSubmit(): void { 
