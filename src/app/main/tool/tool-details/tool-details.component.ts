@@ -18,6 +18,9 @@ export class ToolDetailsComponent implements OnInit, OnDestroy {
 
   currentItemId: string;
   item: Tool;
+  isUser = false;
+  isAdmin = false;
+  isAuthorized = false;
 
   constructor(
     private toolService: ToolService,
@@ -37,6 +40,10 @@ export class ToolDetailsComponent implements OnInit, OnDestroy {
     if (!!this.currentItemId) {
       this.toolService.getToolById(this.currentItemId).then(item => {
         this.item = item;
+        const role = localStorage.getItem('role');
+        this.isAdmin = role === 'ROLE_ADMIN';
+        this.isUser = role === 'ROLE_USER';
+        this.isAuthorized = role === 'ROLE_ADMIN' || role === 'ROLE_USER';
       });
     }
   }

@@ -18,6 +18,9 @@ export class PublicationDetailsComponent implements OnInit, OnDestroy {
 
   currentItemId: string;
   item: Publication;
+  isUser = false;
+  isAdmin = false;
+  isAuthorized = false;
 
   constructor(
     private publicationService: PublicationService,
@@ -37,6 +40,10 @@ export class PublicationDetailsComponent implements OnInit, OnDestroy {
     if (!!this.currentItemId) {
       this.publicationService.getPublicationById(this.currentItemId).then(item => {
         this.item = item;
+        const role = localStorage.getItem('role');
+        this.isAdmin = role === 'ROLE_ADMIN';
+        this.isUser = role === 'ROLE_USER';
+        this.isAuthorized = role === 'ROLE_ADMIN' || role === 'ROLE_USER';
       });
     }
   }

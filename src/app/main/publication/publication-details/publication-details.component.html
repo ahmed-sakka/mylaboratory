@@ -46,11 +46,11 @@
                     <mat-icon>people</mat-icon>
                 </button>
 
-                <button mat-icon-button color="accent" [routerLink]="['edit']">
+                <button mat-icon-button color="accent" [routerLink]="['edit']" *ngIf="isAdmin">
                     <mat-icon>edit</mat-icon>
                 </button>
 
-                <button mat-icon-button color="warn" (click)="onRemoveItem(item.id)">
+                <button mat-icon-button color="warn" (click)="onRemoveItem(item.id)" *ngIf="isAdmin">
                     <mat-icon>delete</mat-icon>
                 </button>
             </td>
