@@ -26,6 +26,7 @@ export class EventListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   displayedColumns: string[] = ['id', 'titre', 'lieu', 'date', 'actions'];
   dataSource;
+  isAdmin = false ;
 
   // Sort
   @ViewChild(MatSort) sort: MatSort;
@@ -42,6 +43,9 @@ export class EventListComponent implements OnInit, OnDestroy, AfterViewInit {
   fetchDataSource(): void {
     this.eventService.getAllEvents().then(data => {
       this.dataSource = data;
+      const role = localStorage.getItem('role');
+      this.isAdmin = role === 'ROLE_ADMIN';
+
     });
   }
 

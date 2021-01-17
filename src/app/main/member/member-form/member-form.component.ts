@@ -1,8 +1,10 @@
+import { User } from './../../../../models/user';
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, NgModel, Validators} from '@angular/forms';
 import {Member} from '../../../../models/member.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MemberService} from '../../../../services/member.service';
+import { Role } from 'src/models/Role';
 
 @Component({
   selector: 'app-member-form',
@@ -19,6 +21,7 @@ export class MemberFormComponent implements OnInit {
   isStudent = false;
   isEns = false;
   showSubmit = true;
+  
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -27,6 +30,7 @@ export class MemberFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.currentItemId = this.activatedRoute.snapshot.params.id;
     if (!!this.currentItemId) {
       this.showSubmit = false;
@@ -91,11 +95,21 @@ export class MemberFormComponent implements OnInit {
   onSubmit(): void { 
     const objectToSubmit: Member = {...this.item, ...this.form.value};
     objectToSubmit.dateInscription = Date.now().toString();
-    if(this.selectedValue === 'etudiant') {
-    this.memberService.saveMemberEtudiant(objectToSubmit).then(() => this.router.navigate(['./members']));
+    if ( this.selectedValue === 'etudiant') {
+    this.memberService.saveMemberEtudiant(objectToSubmit).then(() => {
+      // tslint:disable-next-line:max-line-length
+      const user = new User(objectToSubmit.email, objectToSubmit.nom, objectToSubmit.email, objectToSubmit.password,[new Role(2, 'ROLE_USER')]);
+      console.log(user);
+      this.memberService.registerMember(user).then(resp => {this.router.navigate(['./members']);});
+      });
     }
     else {
-    this.memberService.saveMemberEns(objectToSubmit).then(() => this.router.navigate(['./members']));
+    this.memberService.saveMemberEns(objectToSubmit).then(() => {
+      // tslint:disable-next-line:max-line-length
+      const user = new User(objectToSubmit.email, objectToSubmit.nom, objectToSubmit.email, objectToSubmit.password,[ new Role(2, 'ROLE_USER')]);
+      console.log(user);
+      this.memberService.registerMember(user).then(resp => {this.router.navigate(['./members']);});
+      });
     }
   }
   isFormInEditMode(): boolean {

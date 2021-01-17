@@ -14,7 +14,7 @@ import {takeUntil} from "rxjs/operators";
 export class MemberListComponent implements OnInit, OnDestroy {
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();
-
+  isAdmin = false ;
   displayedColumns: string[] = ['id', 'cin', 'nom', 'diplome' ,'email','dateNaissance', 'dateInscription', 'cv', 'type', 'actions'];
   dataSource: Member[] = [];
 
@@ -31,11 +31,17 @@ export class MemberListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.fetchDataSource();
+    
   }
 
   fetchDataSource(): void {
     this.memberService.getAllMembers().then(data => {
       this.dataSource = data;
+      const role = localStorage.getItem('role');
+      this.isAdmin = role === 'ROLE_ADMIN';
+
+     
+
     });
   }
 

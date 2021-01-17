@@ -16,8 +16,9 @@ import { PublicationService } from 'src/services/publication.service';
 export class PublicationListComponent implements OnInit, OnDestroy, AfterViewInit {
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();
+  isAdmin = false ;
 
-  displayedColumns: string[] = ['id', 'titre', 'type', 'date' ,'source','lien','actions'];
+  displayedColumns =  ['id', 'titre', 'type', 'date' , 'source', 'lien', 'actions'] ;
   dataSource;
 
   constructor(
@@ -38,6 +39,11 @@ export class PublicationListComponent implements OnInit, OnDestroy, AfterViewIni
   fetchDataSource(): void {
     this.publicationService.getAllPublications().then(data => {
       this.dataSource = data;
+      const role = localStorage.getItem('role');
+      this.isAdmin = role === 'ROLE_ADMIN';
+      if (this.isAdmin) {
+      }
+      
     });
   }
 

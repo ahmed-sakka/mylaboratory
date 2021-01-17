@@ -21,11 +21,12 @@ export class PublicationMemberComponent implements OnInit {
   options: Member[] = [];
   filteredOptions: Observable<Member[]>;
   pubId: number ;
+  // tslint:disable-next-line:variable-name
   protected _onDestroy = new Subject<void>();
   constructor(private memberService: MemberService, private activeRouter: ActivatedRoute, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.pubId =this.activeRouter.snapshot.params.id;
+    this.pubId = this.activeRouter.snapshot.params.id;
     this.memberService.getPublicationmember(this.activeRouter.snapshot.params.id).then(data => {
         this.dataSource = data;
       });
@@ -46,14 +47,14 @@ export class PublicationMemberComponent implements OnInit {
       }
   affecter(): void{
         const memberId = this.myControl.value ;
-        this.memberService.affecterEvent(this.pubId , memberId ).then(reponse => {
+        this.memberService.affecterPublication(this.pubId , memberId ).then(reponse => {
         const member = this.options.filter(option => option.id === memberId);
         this.fetchData();
         this.myControl.patchValue('');
         });
   }
   fetchData(): void {
-        this.memberService.getEventParticipent(this.activeRouter.snapshot.params.id).then(data => {
+        this.memberService.getPublicationmember(this.activeRouter.snapshot.params.id).then(data => {
           this.dataSource = data;
 });
 

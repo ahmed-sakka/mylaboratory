@@ -33,9 +33,15 @@
             <input matInput placeholder="Nom" formControlName="nom">
         </mat-form-field>
 
-        <mat-form-field>
-            <input matInput placeholder="Diplome" formControlName="diplome">
-        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Choose an option</mat-label>
+            <mat-select  formControlName="diplome">
+              <mat-option value="Master">Master</mat-option>
+              <mat-option value="Doctora" >Doctora</mat-option>
+              
+            </mat-select>
+          </mat-form-field>
         <mat-form-field>
             <input matInput placeholder="adress" formControlName="adress">
         </mat-form-field>
@@ -43,7 +49,7 @@
             <input matInput placeholder="Email" formControlName="email">
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="password" formControlName="password">
+            <input type="password" matInput placeholder="password" formControlName="password">
         </mat-form-field>
 
         <mat-form-field>
@@ -98,7 +104,7 @@
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="password" formControlName="password">
+            <input type="password" matInput placeholder="password" formControlName="password">
         </mat-form-field>
         <mat-form-field>
             <input matInput placeholder="grade" formControlName="grade">

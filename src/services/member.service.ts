@@ -1,3 +1,4 @@
+import { User } from './../models/user';
 import {Injectable} from '@angular/core';
 import {GLOBAL} from '../app/app-config';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -126,6 +127,11 @@ export class MemberService {
   }
   deleteAffecterPublication(pubId: number , memberId: number): Promise<any> {
     return this.httpClient.delete(`${this.path}/membres/deletepublicationaffectation/${pubId}/${memberId}`).toPromise();
+
+  }
+
+  registerMember(user: User): Promise<User>{
+    return this.httpClient.post<User>(`${environment.gatewayEndpoint}/signup`, user).toPromise();
 
   }
 

@@ -17,8 +17,9 @@ export class ToolListComponent implements OnInit, OnDestroy, AfterViewInit {
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();
 
-  displayedColumns: string[] = ['id','source', 'date' ,'actions'];
+  displayedColumns: string[] = ['id','source', 'date' , 'actions'];
   dataSource;
+  isAdmin = false ;
 
   constructor(
     private toolService: ToolService,
@@ -38,6 +39,12 @@ export class ToolListComponent implements OnInit, OnDestroy, AfterViewInit {
   fetchDataSource(): void {
     this.toolService.getAllTools().then(data => {
       this.dataSource = data;
+      const role = localStorage.getItem('role');
+      this.isAdmin = role === 'ROLE_ADMIN';
+      if (this.isAdmin) {
+      this.displayedColumns =  ['id','source', 'date' , 'actions'];
+      }
+      
     });
   }
 

@@ -1,10 +1,11 @@
+import { Role } from './Role';
 // tslint:disable-next-line:no-empty-interface
-export interface User{
-username: string;
-name: string;
-email: string;
+export class User{
 
-password: string;
+
+constructor(public username: string, public name: string, public email: string, public password: string, public roles: Role[] ){
+
+}
 
 
 }

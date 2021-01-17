@@ -1,5 +1,5 @@
 <div class="my-16" fxLayout="row" fxLayoutAlign="end center">
-  <button mat-raised-button color="primary" routerLink="create">
+  <button mat-raised-button color="primary" routerLink="create" *ngIf="isAdmin">
     <mat-icon class="s-24 mr-4">add</mat-icon>
     Ajouter
   </button>
@@ -58,16 +58,17 @@
 
     </td>
   </ng-container>
-  <ng-container matColumnDef="actions" stickyEnd>
+  <ng-container matColumnDef="actions" stickyEnd >
     <th mat-header-cell class="px-12 w-160" *matHeaderCellDef></th>
     <td mat-cell class="px-12 w-160" *matCellDef="let element">
-      <button mat-icon-button color="primary" [routerLink]="['/profile', element.id]">
+      
+      <button mat-icon-button color="primary" [routerLink]="['/profile', element.id]" >
         <mat-icon>remove_red_eye</mat-icon>
       </button>
-      <button mat-icon-button color="accent" [routerLink]="element.id + '/edit'">
+      <button mat-icon-button color="accent" [routerLink]="element.id + '/edit'" *ngIf="isAdmin">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button color="warn" (click)="onRemoveAccount(element.id)">
+      <button mat-icon-button color="warn" (click)="onRemoveAccount(element.id)" *ngIf="isAdmin">
         <mat-icon>delete</mat-icon>
       </button>
 

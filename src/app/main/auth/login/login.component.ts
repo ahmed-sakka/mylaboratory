@@ -46,6 +46,9 @@ export class LoginComponent implements OnInit {
           console.log(resp);
           this.authService.saveToken((resp as any).accessToken);
           localStorage.setItem("email", (resp as any).user.email);
+          console.log(resp);
+          localStorage.setItem("role", (resp as any).user.roles[0].name);
+
           this.authService.fireIsLoggedIn.emit();
           this.router.navigateByUrl('/');
         },
