@@ -94,11 +94,38 @@ export class MemberService {
     return this.httpClient.get<Member[]>(`${this.path}/membres/findWithEventId/${id}`).toPromise();
 
   }
-  getOutilMembers(id: string): Promise<Member[]> {
+  getOutilMembers(id: number): Promise<Member[]> {
     return this.httpClient.get<Member[]>(`${this.path}/membres/findWithoutilId/${id}`).toPromise();
 
   }getPublicationmember(id: string): Promise<Member[]> {
     return this.httpClient.get<Member[]>(`${this.path}/membres/findWithPubId/${id}`).toPromise();
+
+  }
+  affecterOutil(outilId: number , memberId: number): Promise<any> {
+    return this.httpClient.get(`${this.path}/membres/affecterOutil/${outilId}/${memberId}`).toPromise();
+
+  }
+
+  affecterEvent(eventId: number , memberId: number): Promise<any> {
+    return this.httpClient.get(`${this.path}/membres/affecterEvent/${eventId}/${memberId}`).toPromise();
+
+  }
+  affecterPublication(pubId: number , memberId: number): Promise<any> {
+    return this.httpClient.get(`${this.path}/membres/affecterPublication/${pubId}/${memberId}`).toPromise();
+
+  }
+
+  deleteAffecterOutil(outilId: number , memberId: number): Promise<any> {
+    return this.httpClient.delete(`${this.path}/membres/deleteOutilaffectation/${outilId}/${memberId}`).toPromise();
+
+  }
+
+  deleteAffecterEvent(eventId: number , memberId: number): Promise<any> {
+    return this.httpClient.delete(`${this.path}/membres/deleteEventaffectation/${eventId}/${memberId}`).toPromise();
+
+  }
+  deleteAffecterPublication(pubId: number , memberId: number): Promise<any> {
+    return this.httpClient.delete(`${this.path}/membres/deletepublicationaffectation/${pubId}/${memberId}`).toPromise();
 
   }
 

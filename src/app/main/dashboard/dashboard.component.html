@@ -1,1 +1,49 @@
-<p>dashboard works!</p>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="dbox dbox--color-1">
+				<div class="dbox__icon">
+					<i class="fa fa-users"></i>
+				</div>
+				<div class="dbox__body">
+					<span class="dbox__count">{{membersCount}}</span>
+					<span class="dbox__title">Membres</span>
+				</div>
+				
+				<div class="dbox__action">
+					<button class="dbox__action__btn" routerLink="members">Tout voir</button>
+				</div>				
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="dbox dbox--color-2">
+				<div class="dbox__icon">
+					<i class="fa fa-file"></i>
+				</div>
+				<div class="dbox__body">
+					<span class="dbox__count">{{publicationsCount}}</span>
+					<span class="dbox__title">Publications</span>
+				</div>
+				
+				<div class="dbox__action">
+					<button class="dbox__action__btn" routerLink="publications">Tout voir</button>
+				</div>				
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="dbox dbox--color-3">
+				<div class="dbox__icon">
+					<i class="fa fa-code"></i>
+				</div>
+				<div class="dbox__body">
+					<span class="dbox__count">{{toolsCount}}</span>
+					<span class="dbox__title">Outils</span>
+				</div>
+				
+				<div class="dbox__action">
+					<button class="dbox__action__btn" routerLink="tools">Tout voir</button>
+				</div>				
+			</div>
+		</div>
+	</div>
+</div>

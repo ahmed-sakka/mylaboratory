@@ -1,3 +1,8 @@
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from './../../../../@root/components/confirm-dialog/confirm-dialog.component';
+import { startWith, map, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Member } from './../../../../models/member.model';
 import { Component, OnInit } from '@angular/core';
@@ -12,16 +17,61 @@ export class PublicationMemberComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'cin', 'nom', 'diplome' , 'email', 'dateNaissance', 'dateInscription', 'cv', 'type', 'actions'];
   dataSource: Member[] = [];
-  constructor(private memberService: MemberService, private activeRouter: ActivatedRoute) { }
+  myControl = new FormControl();
+  options: Member[] = [];
+  filteredOptions: Observable<Member[]>;
+  pubId: number ;
+  protected _onDestroy = new Subject<void>();
+  constructor(private memberService: MemberService, private activeRouter: ActivatedRoute, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-
-      this.memberService.getPublicationmember(this.activeRouter.snapshot.params.id).then(data => {
+    this.pubId =this.activeRouter.snapshot.params.id;
+    this.memberService.getPublicationmember(this.activeRouter.snapshot.params.id).then(data => {
         this.dataSource = data;
+      });
+    this.fetchData();
+    this.memberService.getAllMembers().then(data => {
+        this.options = data ;
+      });
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+      }
 
+      private _filter(value: string): Member[] {
+        console.log(value);
+        const filterValue = value.toLowerCase();
+        return this.options.filter(option => option.cin.toLowerCase().indexOf(filterValue) === 0);
+      }
+  affecter(): void{
+        const memberId = this.myControl.value ;
+        this.memberService.affecterEvent(this.pubId , memberId ).then(reponse => {
+        const member = this.options.filter(option => option.id === memberId);
+        this.fetchData();
+        this.myControl.patchValue('');
+        });
+  }
+  fetchData(): void {
+        this.memberService.getEventParticipent(this.activeRouter.snapshot.params.id).then(data => {
+          this.dataSource = data;
+});
 
-
+}
+  // tslint:disable-next-line:no-unused-expression
+  onRemoveAffectation(id: any): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      hasBackdrop: true,
+      disableClose: false,
     });
-    }
 
+    dialogRef.componentInstance.confirmButtonColor = 'warn';
+
+    dialogRef.afterClosed().pipe(takeUntil(this._onDestroy)).subscribe(isDeleteConfirmed => {
+      console.log('removing: ', isDeleteConfirmed);
+      if (isDeleteConfirmed) {
+        this.memberService.deleteAffecterPublication(this.pubId, id).then(() => this.fetchData());
+      }
+    });
+  }
 }
