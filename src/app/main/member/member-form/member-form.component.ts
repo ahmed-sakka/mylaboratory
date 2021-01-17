@@ -68,6 +68,7 @@ export class MemberFormComponent implements OnInit {
       diplome: new FormControl(item?.diplome, [Validators.required]),
       adress: new FormControl(item?.adress, [Validators.required]),
 
+      photo: new FormControl(item?.photo, Validators.required),
       encadrant: new FormControl(item?.encadrant),
 
 
@@ -83,10 +84,22 @@ export class MemberFormComponent implements OnInit {
       email: new FormControl(item?.email, [Validators.required]),
       password: new FormControl(item?.password, [Validators.required]),
       grade: new FormControl(item?.grade, [Validators.required]),
+      image: new FormControl('', Validators.required),
+      imageSrc: new FormControl('', Validators.required),
       etablissement: new FormControl(item?.etablissement, [Validators.required]),
 
     });
   }
+  
+	  onFileChange(event) {
+		const reader = new FileReader();
+
+		if(event.target.files && event.target.files.length) {
+		  const [image] = event.target.files;
+		  reader.readAsDataURL(image);
+
+		}
+	}
 
   onSubmit(): void { 
     const objectToSubmit: Member = {...this.item, ...this.form.value};
