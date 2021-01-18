@@ -19,6 +19,7 @@ import { ToolMembersComponent } from './main/tool/tool-members/tool-members.comp
 import { ToolDetailsComponent } from './main/tool/tool-details/tool-details.component';
 import { PublicationDetailsComponent } from './main/publication/publication-details/publication-details.component';
 import { EventDetailsComponent } from './main/event/event-details/event-details.component';
+import { ProfilPublicationsComponent } from './main/profil/profil-publications/profil-publications.component';
 
 
 const routes: Routes = [
@@ -173,6 +174,10 @@ const routes: Routes = [
   {
     path: 'profile/:id',
     component: ProfilComponent
+  },
+  {
+    path: 'profile/:id/publications',
+    component: ProfilPublicationsComponent
   },
   {
     path: '**',

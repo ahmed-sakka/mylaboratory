@@ -24,11 +24,14 @@
               <div class="profile-designation">{{fullUser?.type}}</div>
 
               <ul class="profile-info-list">
-                <a href="" class="profile-info-list-item"><i class="mdi mdi-file-document-outline"></i>Publications
+                <a href="profile/{{fullUser?.id}}/publications" class="profile-info-list-item"><i
+                    class="mdi mdi-file-document-outline"></i>Publications
                   ({{fullUser?.publications.length}})</a>
-                <a href="" class="profile-info-list-item"><i class="mdi mdi-file-code-outline"></i>Outils
+                <a href="profile/{{fullUser?.id}}/outils" class="profile-info-list-item"><i
+                    class="mdi mdi-file-code-outline"></i>Outils
                   ({{fullUser?.outils.length}})</a>
-                <a href="" class="profile-info-list-item"><i class="mdi mdi-calendar-check-outline"></i>Evenements
+                <a href="profile/{{fullUser?.id}}/evenements" class="profile-info-list-item"><i
+                    class="mdi mdi-calendar-check-outline"></i>Evenements
                   ({{fullUser?.events.length}})</a>
               </ul>
             </div>
@@ -79,11 +82,12 @@
                     *ngIf="this.ens.type === 'ens' && encadre ">Encadrer</button>
                   {{fullUser?.encadrant}}</span> </li>
               <li class="about-items"><i class="mdi mdi-office-building icon-sm "></i><span
-                  class="about-item-name">Etablissement:</span><span class="about-item-detail">{{fullUser?.etablissement}}</span>
+                  class="about-item-name">Etablissement:</span><span
+                  class="about-item-detail">{{fullUser?.etablissement}}</span>
               </li>
               <li class="about-items"><i class="mdi mdi-elevation-rise icon-sm "></i><span
-                class="about-item-name">Grade:</span><span class="about-item-detail">{{fullUser?.grade}}</span>
-            </li>
+                  class="about-item-name">Grade:</span><span class="about-item-detail">{{fullUser?.grade}}</span>
+              </li>
               <li class="about-items"><i class="mdi mdi-file-pdf-outline icon-sm "></i><span
                   class="about-item-name">CV:</span><span class="about-item-detail"><a href="{{fullUser?.cv}}"
                     target="_blank">Voir</a></span></li>

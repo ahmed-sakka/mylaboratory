@@ -89,7 +89,7 @@ export class MemberService {
     return this.httpClient.get<Member>(`${this.path}/membres/searchEmail/${email}` , {headers: this.headers[0]}).toPromise();
 
   }
-  getFullMember(id: number): Promise<any>{
+  getFullMember(id: number): Promise<Member>{
     return this.httpClient.get<any>(`${this.path}/membres/fullmember/${id}` , {headers: this.headers[0]}).toPromise();
 
 

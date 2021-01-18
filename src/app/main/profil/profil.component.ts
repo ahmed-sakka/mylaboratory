@@ -12,12 +12,12 @@ export class ProfilComponent implements OnInit {
   public fullUser ;
   public ens;
   encadre = false ;
-  constructor(private memberService: MemberService , private activayeRouter: ActivatedRoute) { }
+  constructor(private memberService: MemberService, private activatedRouter: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.ens = JSON.parse(localStorage.getItem('user'));
 
-    this.activayeRouter.params.subscribe(params =>
+    this.activatedRouter.params.subscribe(params =>
       this.memberService.getFullMember(params.id).then(
       data => {
         this.fullUser = data;
