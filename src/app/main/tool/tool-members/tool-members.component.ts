@@ -1,19 +1,19 @@
-import { ConfirmDialogComponent } from './../../../../@root/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../../../@root/components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MemberService } from 'src/services/member.service';
-import { Member } from './../../../../models/member.model';
+import { Member } from '../../../../models/member.model';
 import { Component, OnInit } from '@angular/core';
 import { map, startWith, takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-tolls-members',
-  templateUrl: './tolls-members.component.html',
-  styleUrls: ['./tolls-members.component.scss']
+  selector: 'app-tool-members',
+  templateUrl: './tool-members.component.html',
+  styleUrls: ['./tool-members.component.scss']
 })
-export class TollsMembersComponent implements OnInit {
+export class ToolMembersComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'cin', 'nom', 'diplome', 'email', 'dateNaissance', 'dateInscription', 'cv', 'type', 'actions'];
   dataSource: Member[] = [];
@@ -48,15 +48,13 @@ export class TollsMembersComponent implements OnInit {
     const memberId = this.myControl.value;
     this.memberService.affecterOutil(this.outilId, memberId).then(reponse => {
       const member = this.options.filter(option => option.id === memberId);
-      //this.dataSource.push(member[0]);
       this.fetchData();
       this.myControl.patchValue('');
-      //window.location.reload();
     });
 
   }
   fetchData(): void {
-    this.memberService.getEventParticipent(this.activeRouter.snapshot.params.id).then(data => {
+    this.memberService.getOutilMembers(this.activeRouter.snapshot.params.id).then(data => {
       this.dataSource = data;
 
       const logged_in_user = JSON.parse(localStorage.getItem('user')) as Member;
@@ -85,7 +83,7 @@ export class TollsMembersComponent implements OnInit {
     dialogRef.afterClosed().pipe(takeUntil(this._onDestroy)).subscribe(isDeleteConfirmed => {
       console.log('removing: ', isDeleteConfirmed);
       if (isDeleteConfirmed) {
-        this.memberService.deleteAffecterEvent(this.outilId, id).then(() => this.fetchData());
+        this.memberService.deleteAffecterOutil(this.outilId, id).then(() => this.fetchData());
       }
     });
   }

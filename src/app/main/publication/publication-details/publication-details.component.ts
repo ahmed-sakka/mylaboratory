@@ -4,7 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ConfirmDialogComponent } from 'src/@root/components/confirm-dialog/confirm-dialog.component';
+import { Member } from 'src/models/member.model';
 import { Publication } from 'src/models/publication.model';
+import { MemberService } from 'src/services/member.service';
 import { PublicationService } from 'src/services/publication.service';
 
 @Component({
@@ -18,15 +20,17 @@ export class PublicationDetailsComponent implements OnInit, OnDestroy {
 
   currentItemId: string;
   item: Publication;
-  isUser = false;
+  affectedMembers: Member[] = [];
   isAdmin = false;
   isAuthorized = false;
+
 
   constructor(
     private publicationService: PublicationService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
+    private memberService: MemberService,
   ) {
   }
 
@@ -40,10 +44,21 @@ export class PublicationDetailsComponent implements OnInit, OnDestroy {
     if (!!this.currentItemId) {
       this.publicationService.getPublicationById(this.currentItemId).then(item => {
         this.item = item;
-        const role = localStorage.getItem('role');
-        this.isAdmin = role === 'ROLE_ADMIN';
-        this.isUser = role === 'ROLE_USER';
-        this.isAuthorized = role === 'ROLE_ADMIN' || role === 'ROLE_USER';
+
+        this.memberService.getPublicationmember(this.activatedRoute.snapshot.params.id).then(data => {
+          this.affectedMembers = data;
+
+          const logged_in_user = JSON.parse(localStorage.getItem('user')) as Member;
+          const logged_in_user_id = (logged_in_user as unknown as Member).id;
+
+          for (var member of this.affectedMembers) {
+            if (member.id == logged_in_user_id) this.isAuthorized = true;
+          }
+
+          const role = localStorage.getItem('role');
+          this.isAdmin = role === 'ROLE_ADMIN';
+          this.isAuthorized = this.isAuthorized || this.isAdmin;
+        });
       });
     }
   }

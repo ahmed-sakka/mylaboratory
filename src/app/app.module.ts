@@ -23,7 +23,7 @@ import { AuthenticationService } from 'src/services/authentication.service';
 import { ProfilComponent } from './main/profil/profil.component';
 import { EventParticeptionComponent } from './main/event/event-partiception/event-partiception.component';
 import { PublicationMemberComponent } from './main/publication/publication-member/publication-member.component';
-import { TollsMembersComponent } from './main/tool/tolls-members/tolls-members.component';
+import { ToolMembersComponent } from './main/tool/tool-members/tool-members.component';
 import { ToolDetailsComponent } from './main/tool/tool-details/tool-details.component';
 import { PublicationDetailsComponent } from './main/publication/publication-details/publication-details.component';
 import { EventDetailsComponent } from './main/event/event-details/event-details.component';
@@ -47,7 +47,7 @@ import { EncadrementsComponent } from './main/encadrements/encadrements.componen
     ProfilComponent,
     EventParticeptionComponent,
     PublicationMemberComponent,
-    TollsMembersComponent,
+    ToolMembersComponent,
     ToolDetailsComponent,
     PublicationDetailsComponent,
     EventDetailsComponent,

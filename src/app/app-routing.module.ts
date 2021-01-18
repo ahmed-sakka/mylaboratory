@@ -14,7 +14,7 @@ import { ToolFormComponent } from './main/tool/tool-form/tool-form.component';
 import { ToolListComponent } from './main/tool/tool-list/tool-list.component';
 import { EventParticeptionComponent } from './main/event/event-partiception/event-partiception.component';
 import { PublicationMemberComponent } from './main/publication/publication-member/publication-member.component';
-import { TollsMembersComponent } from './main/tool/tolls-members/tolls-members.component';
+import { ToolMembersComponent } from './main/tool/tool-members/tool-members.component';
 
 import { ToolDetailsComponent } from './main/tool/tool-details/tool-details.component';
 import { PublicationDetailsComponent } from './main/publication/publication-details/publication-details.component';
@@ -162,7 +162,7 @@ const routes: Routes = [
       {
         path: ':id/toolsMembers',
         pathMatch: 'full',
-        component: TollsMembersComponent,
+        component: ToolMembersComponent,
       },
       {
         path: '**',
