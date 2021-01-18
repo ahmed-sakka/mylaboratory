@@ -1,0 +1,53 @@
+<div class="my-16" fxLayout="row" fxLayoutAlign="end center">
+    <button mat-raised-button color="primary" routerLink="..">
+        <mat-icon class="s-24 mr-4">reply</mat-icon>
+        Retour
+    </button>
+</div>
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100-p">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell class="px-12" *matHeaderCellDef mat-sort-header> ID</th>
+      <td mat-cell class="px-12" *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="titre">
+      <th mat-header-cell class="px-12" *matHeaderCellDef mat-sort-header> Titre</th>
+      <td mat-cell class="px-12" *matCellDef="let element"> {{element.titre}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="lieu">
+      <th mat-header-cell class="px-12" *matHeaderCellDef mat-sort-header> Lieu</th>
+      <td mat-cell class="px-12" *matCellDef="let element"> {{element.lieu}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="date">
+      <th mat-header-cell class="px-12" *matHeaderCellDef mat-sort-header> Date</th>
+      <td mat-cell class="px-12" *matCellDef="let element">
+        {{element.date | date :'dd/MM/y'}}
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="actions" stickyEnd>
+  
+      <th mat-header-cell class="px-12 w-200" *matHeaderCellDef></th>
+      <td mat-cell class="px-12 w-200" *matCellDef="let element">
+        <button mat-icon-button color="primary" [routerLink]="'/events/' + element.id">
+          <mat-icon>remove_red_eye</mat-icon>
+        </button>
+        <button mat-icon-button [routerLink]="'/events/' + element.id + '/participation'">
+          <mat-icon>people</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" [routerLink]="'/events/' + element.id + '/edit'" *ngIf="isAdmin">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="onRemoveAccount(element.id)" *ngIf="isAdmin">
+          <mat-icon>delete</mat-icon>
+        </button>
+  
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>

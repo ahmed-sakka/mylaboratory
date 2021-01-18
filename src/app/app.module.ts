@@ -30,6 +30,7 @@ import { EventDetailsComponent } from './main/event/event-details/event-details.
 import { EncadrementsComponent } from './main/encadrements/encadrements.component';
 import { ProfilPublicationsComponent } from './main/profil/profil-publications/profil-publications.component';
 import { ProfilToolsComponent } from './main/profil/profil-tools/profil-tools.component';
+import { ProfilEventsComponent } from './main/profil/profil-events/profil-events.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { ProfilToolsComponent } from './main/profil/profil-tools/profil-tools.co
     EncadrementsComponent,
     ProfilPublicationsComponent,
     ProfilToolsComponent,
+    ProfilEventsComponent,
   ],
   imports: [
     BrowserModule,

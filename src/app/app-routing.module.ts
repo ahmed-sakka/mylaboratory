@@ -21,6 +21,7 @@ import { PublicationDetailsComponent } from './main/publication/publication-deta
 import { EventDetailsComponent } from './main/event/event-details/event-details.component';
 import { ProfilPublicationsComponent } from './main/profil/profil-publications/profil-publications.component';
 import { ProfilToolsComponent } from './main/profil/profil-tools/profil-tools.component';
+import { ProfilEventsComponent } from './main/profil/profil-events/profil-events.component';
 
 
 const routes: Routes = [
@@ -183,6 +184,10 @@ const routes: Routes = [
   {
     path: 'profile/:id/outils',
     component: ProfilToolsComponent
+  },
+  {
+    path: 'profile/:id/evenements',
+    component: ProfilEventsComponent
   },
   {
     path: '**',
