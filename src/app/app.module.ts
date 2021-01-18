@@ -29,6 +29,7 @@ import { PublicationDetailsComponent } from './main/publication/publication-deta
 import { EventDetailsComponent } from './main/event/event-details/event-details.component';
 import { EncadrementsComponent } from './main/encadrements/encadrements.component';
 import { ProfilPublicationsComponent } from './main/profil/profil-publications/profil-publications.component';
+import { ProfilToolsComponent } from './main/profil/profil-tools/profil-tools.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { ProfilPublicationsComponent } from './main/profil/profil-publications/p
     EventDetailsComponent,
     EncadrementsComponent,
     ProfilPublicationsComponent,
+    ProfilToolsComponent,
   ],
   imports: [
     BrowserModule,
