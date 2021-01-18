@@ -10,9 +10,9 @@ import { ToolService } from 'src/services/tool.service';
 })
 export class DashboardComponent implements OnInit {
 
-  membersCount;
-  publicationsCount;
-  toolsCount;
+  membersCount = 0;
+  publicationsCount = 0;
+  toolsCount = 0;
 
   constructor(
     private memberService: MemberService,
