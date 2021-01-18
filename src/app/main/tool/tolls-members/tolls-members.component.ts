@@ -15,71 +15,80 @@ import { map, startWith, takeUntil } from 'rxjs/operators';
 })
 export class TollsMembersComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'cin', 'nom', 'diplome' , 'email', 'dateNaissance', 'dateInscription', 'cv', 'type', 'actions'];
+  displayedColumns: string[] = ['id', 'cin', 'nom', 'diplome', 'email', 'dateNaissance', 'dateInscription', 'cv', 'type', 'actions'];
   dataSource: Member[] = [];
-   myControl = new FormControl();
+  myControl = new FormControl();
   options: Member[] = [];
   filteredOptions: Observable<Member[]>;
-  outilId: number ;
+  outilId: number;
+  isAdmin = false;
+  isAuthorized = false;
   // tslint:disable-next-line:variable-name
   protected _onDestroy = new Subject<void>();
   constructor(private memberService: MemberService, private activeRouter: ActivatedRoute, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.outilId = this.activeRouter.snapshot.params.id;
-    this.memberService.getOutilMembers(this.outilId).then(data => {
-        console.log(data);
-        this.dataSource = data;
+    this.fetchData();
 
-
-
-    });
     this.memberService.getAllMembers().then(data => {
-      this.options = data ;
+      this.options = data;
     });
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
     );
-    }
-    private _filter(value: string): Member[] {
-      const filterValue = value.toLowerCase();
-      return this.options.filter(option => option.cin.toLowerCase().indexOf(filterValue) === 0);
-    }
+  }
+  private _filter(value: string): Member[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.cin.toLowerCase().indexOf(filterValue) === 0);
+  }
 
-    affecter(): void{
-      const memberId = this.myControl.value ;
-      this.memberService.affecterOutil(this.outilId , memberId ).then(reponse => {
+  affecter(): void {
+    const memberId = this.myControl.value;
+    this.memberService.affecterOutil(this.outilId, memberId).then(reponse => {
       const member = this.options.filter(option => option.id === memberId);
-      this.dataSource.push(member[0]);
+      //this.dataSource.push(member[0]);
+      this.fetchData();
       this.myControl.patchValue('');
-      window.location.reload();
-      });
+      //window.location.reload();
+    });
 
-    }
-    fetchData(): void {
-      this.memberService.getEventParticipent(this.activeRouter.snapshot.params.id).then(data => {
-        this.dataSource = data;
+  }
+  fetchData(): void {
+    this.memberService.getEventParticipent(this.activeRouter.snapshot.params.id).then(data => {
+      this.dataSource = data;
+
+      const logged_in_user = JSON.parse(localStorage.getItem('user')) as Member;
+      const logged_in_user_id = (logged_in_user as unknown as Member).id;
+
+      for (var member of this.dataSource) {
+        if (member.id == logged_in_user_id) this.isAuthorized = true;
+      }
+
+      const role = localStorage.getItem('role');
+      this.isAdmin = role === 'ROLE_ADMIN';
+      this.isAuthorized = this.isAuthorized || this.isAdmin;
 
 
+    });
+  }
+  // tslint:disable-next-line:no-unused-expression
+  onRemoveAffectation(id: any): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      hasBackdrop: true,
+      disableClose: false,
+    });
 
-    }); }
-          // tslint:disable-next-line:no-unused-expression
-      onRemoveAffectation(id: any): void {
-            const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-              hasBackdrop: true,
-              disableClose: false,
-            });
+    dialogRef.componentInstance.confirmButtonColor = 'warn';
 
-            dialogRef.componentInstance.confirmButtonColor = 'warn';
-
-            dialogRef.afterClosed().pipe(takeUntil(this._onDestroy)).subscribe(isDeleteConfirmed => {
-              console.log('removing: ', isDeleteConfirmed);
-              if (isDeleteConfirmed) {
-                this.memberService.deleteAffecterEvent(this.outilId, id).then(() => this.fetchData());
-              }
-            });
-          }
+    dialogRef.afterClosed().pipe(takeUntil(this._onDestroy)).subscribe(isDeleteConfirmed => {
+      console.log('removing: ', isDeleteConfirmed);
+      if (isDeleteConfirmed) {
+        this.memberService.deleteAffecterEvent(this.outilId, id).then(() => this.fetchData());
+      }
+    });
+  }
 
 
 }

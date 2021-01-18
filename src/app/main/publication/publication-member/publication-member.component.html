@@ -1,10 +1,16 @@
-
 <div class="my-16" fxLayout="row" fxLayoutAlign="end center">
+  <button mat-raised-button color="primary" routerLink="publications">
+      <mat-icon class="s-24 mr-4">reply</mat-icon>
+      Retour
+  </button>
+</div>
+
+<div class="my-16" fxLayout="row" fxLayoutAlign="end center" *ngIf="isAuthorized">
   <form class="example-form">
     <mat-form-field class="example-full-width">
-      <mat-label>Member</mat-label>
+      <mat-label>Ajouter des participants</mat-label>
       <input type="text"
-             placeholder="Pick one"
+             placeholder="CIN du membre"
              aria-label="Member"
              matInput
              [formControl]="myControl"
@@ -18,7 +24,6 @@
       </mat-autocomplete>
     </mat-form-field>
   </form>
-  
 </div>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p">
@@ -76,7 +81,12 @@
   <ng-container matColumnDef="actions" stickyEnd>
     <th mat-header-cell class="px-12 w-120" *matHeaderCellDef></th>
     <td mat-cell class="px-12 w-120" *matCellDef="let element">
-      <button mat-icon-button color="warn" (click)="onRemoveAffectation(element.id)">
+
+      <button mat-icon-button color="primary" [routerLink]="['/profile', element.id]" >
+        <mat-icon>remove_red_eye</mat-icon>
+      </button>
+
+      <button mat-icon-button color="warn" (click)="onRemoveAffectation(element.id)" *ngIf="isAuthorized">
         <mat-icon>delete</mat-icon>
       </button>
 

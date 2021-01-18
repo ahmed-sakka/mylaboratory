@@ -102,7 +102,8 @@ export class MemberService {
   getOutilMembers(id: number): Promise<Member[]> {
     return this.httpClient.get<Member[]>(`${this.path}/membres/findWithoutilId/${id}`).toPromise();
 
-  }getPublicationmember(id: string): Promise<Member[]> {
+  }
+  getPublicationmember(id: string): Promise<Member[]> {
     return this.httpClient.get<Member[]>(`${this.path}/membres/findWithPubId/${id}`).toPromise();
 
   }
