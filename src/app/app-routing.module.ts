@@ -14,11 +14,14 @@ import { ToolFormComponent } from './main/tool/tool-form/tool-form.component';
 import { ToolListComponent } from './main/tool/tool-list/tool-list.component';
 import { EventParticeptionComponent } from './main/event/event-partiception/event-partiception.component';
 import { PublicationMemberComponent } from './main/publication/publication-member/publication-member.component';
-import { TollsMembersComponent } from './main/tool/tolls-members/tolls-members.component';
+import { ToolMembersComponent } from './main/tool/tool-members/tool-members.component';
 
 import { ToolDetailsComponent } from './main/tool/tool-details/tool-details.component';
 import { PublicationDetailsComponent } from './main/publication/publication-details/publication-details.component';
 import { EventDetailsComponent } from './main/event/event-details/event-details.component';
+import { ProfilPublicationsComponent } from './main/profil/profil-publications/profil-publications.component';
+import { ProfilToolsComponent } from './main/profil/profil-tools/profil-tools.component';
+import { ProfilEventsComponent } from './main/profil/profil-events/profil-events.component';
 
 
 const routes: Routes = [
@@ -162,7 +165,7 @@ const routes: Routes = [
       {
         path: ':id/toolsMembers',
         pathMatch: 'full',
-        component: TollsMembersComponent,
+        component: ToolMembersComponent,
       },
       {
         path: '**',
@@ -173,6 +176,18 @@ const routes: Routes = [
   {
     path: 'profile/:id',
     component: ProfilComponent
+  },
+  {
+    path: 'profile/:id/publications',
+    component: ProfilPublicationsComponent
+  },
+  {
+    path: 'profile/:id/outils',
+    component: ProfilToolsComponent
+  },
+  {
+    path: 'profile/:id/evenements',
+    component: ProfilEventsComponent
   },
   {
     path: '**',

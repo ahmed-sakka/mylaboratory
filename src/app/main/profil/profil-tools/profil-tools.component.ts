@@ -7,18 +7,22 @@ import { takeUntil } from 'rxjs/operators';
 import { ConfirmDialogComponent } from 'src/@root/components/confirm-dialog/confirm-dialog.component';
 import { Tool } from 'src/models/tool.model';
 import { ToolService } from 'src/services/tool.service';
+import { MemberService } from 'src/services/member.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-tool-list',
-  templateUrl: './tool-list.component.html',
-  styleUrls: ['./tool-list.component.scss']
+  selector: 'app-profil-tools',
+  templateUrl: './profil-tools.component.html',
+  styleUrls: ['./profil-tools.component.scss']
 })
-export class ToolListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ProfilToolsComponent implements OnInit, OnDestroy, AfterViewInit {
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();
 
   displayedColumns: string[] = ['id','source', 'date' , 'actions'];
   dataSource;
+  profilId;
+  fullUser;
   isUser = false;
   isAdmin = false;
   isAuthorized = false;
@@ -26,6 +30,9 @@ export class ToolListComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private toolService: ToolService,
     private dialog: MatDialog,
+    private memberService: MemberService,
+    private activatedRouter: ActivatedRoute,
+
   ) {
   }
 
@@ -39,14 +46,23 @@ export class ToolListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   fetchDataSource(): void {
-    this.toolService.getAllTools().then(data => {
-      this.dataSource = data;
-      const role = localStorage.getItem('role');
-      this.isAdmin = role === 'ROLE_ADMIN'; 
-      this.isUser = role === 'ROLE_USER';
-      this.isAuthorized = role === 'ROLE_ADMIN' || role === 'ROLE_USER'; 
+    this.profilId = this.activatedRouter.snapshot.params.id;
 
-    });
+    this.memberService.getFullMember(this.profilId).then(
+      data => {
+        this.fullUser = data;
+        this.dataSource = new MatTableDataSource(this.fullUser.outils);
+        if (this.sort) // check it is defined.
+        {
+          this.dataSource.sort = this.sort;
+        }
+
+        const role = localStorage.getItem('role');
+        this.isAdmin = role === 'ROLE_ADMIN';
+        this.isUser = role === 'ROLE_USER';
+        this.isAuthorized = role === 'ROLE_ADMIN' || role === 'ROLE_USER';
+      })
+
   }
 
   onRemoveAccount(id: any): void {
@@ -70,13 +86,7 @@ export class ToolListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void
   {
-    this.toolService.getAllTools().then(data => {
-      this.dataSource = new MatTableDataSource(data);
-      if (this.sort) // check it is defined.
-      {
-          this.dataSource.sort = this.sort;
-      }
-    });
+    this.fetchDataSource();
   }
 
 }

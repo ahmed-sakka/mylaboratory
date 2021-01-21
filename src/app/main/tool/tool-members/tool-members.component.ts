@@ -1,26 +1,26 @@
+import { ConfirmDialogComponent } from '../../../../@root/components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from './../../../../@root/components/confirm-dialog/confirm-dialog.component';
-import { startWith, map, takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Member } from './../../../../models/member.model';
-import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MemberService } from 'src/services/member.service';
+import { Member } from '../../../../models/member.model';
+import { Component, OnInit } from '@angular/core';
+import { map, startWith, takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-publication-member',
-  templateUrl: './publication-member.component.html',
-  styleUrls: ['./publication-member.component.scss']
+  selector: 'app-tool-members',
+  templateUrl: './tool-members.component.html',
+  styleUrls: ['./tool-members.component.scss']
 })
-export class PublicationMemberComponent implements OnInit {
+export class ToolMembersComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'cin', 'nom', 'diplome', 'email', 'dateNaissance', 'dateInscription', 'cv', 'type', 'actions'];
   dataSource: Member[] = [];
   myControl = new FormControl();
   options: Member[] = [];
   filteredOptions: Observable<Member[]>;
-  pubId: number;
+  outilId: number;
   isAdmin = false;
   isAuthorized = false;
   // tslint:disable-next-line:variable-name
@@ -28,8 +28,7 @@ export class PublicationMemberComponent implements OnInit {
   constructor(private memberService: MemberService, private activeRouter: ActivatedRoute, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.pubId = this.activeRouter.snapshot.params.id;
-    
+    this.outilId = this.activeRouter.snapshot.params.id;
     this.fetchData();
 
     this.memberService.getAllMembers().then(data => {
@@ -40,22 +39,22 @@ export class PublicationMemberComponent implements OnInit {
       map(value => this._filter(value))
     );
   }
-
   private _filter(value: string): Member[] {
-    console.log(value);
     const filterValue = value.toLowerCase();
     return this.options.filter(option => option.cin.toLowerCase().indexOf(filterValue) === 0);
   }
+
   affecter(): void {
     const memberId = this.myControl.value;
-    this.memberService.affecterPublication(this.pubId, memberId).then(reponse => {
+    this.memberService.affecterOutil(this.outilId, memberId).then(reponse => {
       const member = this.options.filter(option => option.id === memberId);
       this.fetchData();
       this.myControl.patchValue('');
     });
+
   }
   fetchData(): void {
-    this.memberService.getPublicationmember(this.activeRouter.snapshot.params.id).then(data => {
+    this.memberService.getOutilMembers(this.activeRouter.snapshot.params.id).then(data => {
       this.dataSource = data;
 
       const logged_in_user = JSON.parse(localStorage.getItem('user')) as Member;
@@ -68,8 +67,9 @@ export class PublicationMemberComponent implements OnInit {
       const role = localStorage.getItem('role');
       this.isAdmin = role === 'ROLE_ADMIN';
       this.isAuthorized = this.isAuthorized || this.isAdmin;
-    });
 
+
+    });
   }
   // tslint:disable-next-line:no-unused-expression
   onRemoveAffectation(id: any): void {
@@ -83,8 +83,10 @@ export class PublicationMemberComponent implements OnInit {
     dialogRef.afterClosed().pipe(takeUntil(this._onDestroy)).subscribe(isDeleteConfirmed => {
       console.log('removing: ', isDeleteConfirmed);
       if (isDeleteConfirmed) {
-        this.memberService.deleteAffecterPublication(this.pubId, id).then(() => this.fetchData());
+        this.memberService.deleteAffecterOutil(this.outilId, id).then(() => this.fetchData());
       }
     });
   }
+
+
 }

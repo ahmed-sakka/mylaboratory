@@ -7,17 +7,21 @@ import { takeUntil } from 'rxjs/operators';
 import { ConfirmDialogComponent } from 'src/@root/components/confirm-dialog/confirm-dialog.component';
 import { Event } from 'src/models/event.model';
 import { EventService } from 'src/services/event.service';
+import { MemberService } from 'src/services/member.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-event-list',
-  templateUrl: './event-list.component.html',
-  styleUrls: ['./event-list.component.scss']
+  selector: 'app-profil-events',
+  templateUrl: './profil-events.component.html',
+  styleUrls: ['./profil-events.component.scss']
 })
-export class EventListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ProfilEventsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private eventService: EventService,
     private dialog: MatDialog,
+    private memberService: MemberService,
+    private activatedRouter: ActivatedRoute,
   ) {
   }
   /** Subject that emits when the component has been destroyed. */
@@ -26,6 +30,8 @@ export class EventListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   displayedColumns: string[] = ['id', 'titre', 'lieu', 'date', 'actions'];
   dataSource;
+  profilId;
+  fullUser;
   isUser = false;
   isAdmin = false;
   isAuthorized = false;
@@ -43,14 +49,23 @@ export class EventListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   fetchDataSource(): void {
-    this.eventService.getAllEvents().then(data => {
-      this.dataSource = data;
-      const role = localStorage.getItem('role');
-      this.isAdmin = role === 'ROLE_ADMIN'; 
-      this.isUser = role === 'ROLE_USER';
-      this.isAuthorized = role === 'ROLE_ADMIN' || role === 'ROLE_USER'; 
+    this.profilId = this.activatedRouter.snapshot.params.id;
 
-    });
+    this.memberService.getFullMember(this.profilId).then(
+      data => {
+        this.fullUser = data;
+        this.dataSource = new MatTableDataSource(this.fullUser.events);
+        if (this.sort) // check it is defined.
+        {
+          this.dataSource.sort = this.sort;
+        }
+
+        const role = localStorage.getItem('role');
+        this.isAdmin = role === 'ROLE_ADMIN';
+        this.isUser = role === 'ROLE_USER';
+        this.isAuthorized = role === 'ROLE_ADMIN' || role === 'ROLE_USER';
+      })
+
   }
 
   onRemoveAccount(id: any): void {
@@ -71,12 +86,6 @@ export class EventListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void
   {
-    this.eventService.getAllEvents().then(data => {
-      this.dataSource = new MatTableDataSource(data);
-      if (this.sort) // check it is defined.
-      {
-          this.dataSource.sort = this.sort;
-      }
-    });
+    this.fetchDataSource();
   }
 }

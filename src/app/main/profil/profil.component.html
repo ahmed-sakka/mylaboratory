@@ -1,125 +1,112 @@
-<div class="container" id="scrollable">
-    <div class="main-body">
-    
-         
-    
-          <!-- /Breadcrumb -->
-    
-          <div class="row gutters-sm">
-            <div class="col-md-4 mb-3">
-              <div class="card">
-                <div class="card-body">
-                  <div class="d-flex flex-column align-items-center text-center">
-                    <img src="{{fullUser.photo}}" alt="Admin" class="rounded-circle" width="150">
-                    <div class="mt-3">
-                      <h4>{{fullUser?.nom}} {{fullUser?.prenom}}</h4>
-                      <p class="text-secondary mb-1">{{fullUser?.type}}</p>
-                      <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
-                      <button class="btn btn-primary" (click)="encadrer()" *ngIf="this.ens.type === 'ens' && encadre ">Encadrer</button>
-                      <button class="btn btn-outline-primary">Message</button>
-                    </div>
-                  </div>
-                </div>
+<!-- partial -->
+<div class="main-panel">
+  <div class="container">
+
+
+    <div class="row">
+      <div class="col-md-4 grid-margin stretch-card">
+        <div class="card">
+          <div class="profile-card">
+
+            <div class="profile-header">
+
+              <div class="cover-image">
+                <img src="https://cdn.pixabay.com/photo/2019/10/19/14/16/away-4561518_960_720.jpg"
+                  class="img img-fluid">
               </div>
-              <div class="card mt-3">
-                <div class="row gutters-sm">
-                    <div class="col-sm-6 mb-3">
-                      <div class="card ">
-                        <div class="card-body">
-                          <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Evenements</h6>
-                          <div *ngFor="let event of fullUser?.events" >
-                          <h3>{{event.titre}} : {{event.date |date : 'yyy-mm-dd'}}</h3>
-                          <h5>lieu : {{event.lieu}}</h5>
-                          
-                        </div>
-                         
-                          
-                          
-                        </div>
-                      </div>
-                    </div>
-                   
-                  </div>
+              <div class="user-image">
+                <img src="{{fullUser.photo}}" class="img ">
               </div>
             </div>
-            <div class="col-md-8">
-              <div class="card mb-3">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Full Name</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                        {{fullUser?.nom}} {{fullUser?.prenom}}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Email</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                        {{fullUser?.email}}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">CIN</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                        {{fullUser.cin}}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Mobile</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                        {{fullUser.phone}}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Address</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                        {{fullUser.adress}}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row gutters-sm">
-                <div class="col-sm-6 mb-3">
-                  <div class="card ">
-                    <div class="card-body">
-                      <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Outils</h6>
-                      <div *ngFor="let outil of fullUser.outils" >
-                      <h3>{{outil.source}} : {{outil.date |date : 'yyy-mm-dd'}}</h3>
-                      
-                    </div>
-                     
-                      
-                      
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 mb-3">
-                  <div class="card ">
-                    <div class="card-body">
-                      <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Publications</h6>
-                      <div *ngFor="let publication of fullUser.publications" >
-                        <h1>{{publication.titre}} : {{publication.date |date : 'yyy-mm-dd'}}</h1>
-                        <p>Lien: {{publication.lien}} </p>
-                        <p>source: {{publication.source}} </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
+            <div class="profile-content">
+              <div class="profile-name">{{fullUser?.prenom}} {{fullUser?.nom}}</div>
+              <div class="profile-designation">{{fullUser?.type}}</div>
+
+              <ul class="profile-info-list">
+                <a href="profile/{{fullUser?.id}}/publications" class="profile-info-list-item"><i
+                    class="mdi mdi-file-document-outline"></i>Publications
+                  ({{fullUser?.publications.length}})</a>
+                <a href="profile/{{fullUser?.id}}/outils" class="profile-info-list-item"><i
+                    class="mdi mdi-file-code-outline"></i>Outils
+                  ({{fullUser?.outils.length}})</a>
+                <a href="profile/{{fullUser?.id}}/evenements" class="profile-info-list-item"><i
+                    class="mdi mdi-calendar-check-outline"></i>Evenements
+                  ({{fullUser?.events.length}})</a>
+              </ul>
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="col-md-8 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-title font-weight-bold">A propos</p>
+            <hr>
+            <p class="card-description">Informations générales</p>
+            <ul class="about">
+              <li class="about-items"><i class="mdi mdi-account icon-sm "></i><span class="about-item-name">Nom
+                  complet:</span><span class="about-item-detail">{{fullUser?.prenom}} {{fullUser?.nom}}</span></li>
+              <li class="about-items"><i class="mdi mdi-format-list-numbered icon-sm "></i><span
+                  class="about-item-name">CIN :</span><span class="about-item-detail">{{fullUser?.cin}}</span>
+              </li>
+              <li class="about-items"><i class="mdi mdi-cake icon-sm "></i><span
+                  class="about-item-name">Naissance:</span><span
+                  class="about-item-detail">{{fullUser?.dateNaissance}}</span></li>
+              <li class="about-items"><i class="mdi mdi-map-marker icon-sm "></i><span
+                  class="about-item-name">Adresse:</span><span class="about-item-detail">{{fullUser?.adress}}</span>
+              </li>
+              <li class="about-items"><i class="mdi mdi-phone icon-sm "></i><span
+                  class="about-item-name">Téléphone:</span><span class="about-item-detail">{{fullUser?.phone}}</span>
+              </li>
+              <li class="about-items"><i class="mdi mdi-email-outline icon-sm "></i><span
+                  class="about-item-name">Email:</span><span class="about-item-detail">{{fullUser?.email}}</span> </li>
+              <li class="about-items"><i class="mdi mdi-calendar-account-outline icon-sm "></i><span
+                  class="about-item-name">Inscription:</span><span
+                  class="about-item-detail">{{fullUser?.dateInscription}}</span></li>
+            </ul>
+
+            <p class="card-description">Informations professionnelles</p>
+            <ul class="about">
+
+              <li class="about-items"><i class="mdi mdi-clipboard-account icon-sm "></i><span
+                  class="about-item-name">Profession:</span><span class="about-item-detail">{{fullUser?.type}}</span>
+              </li>
+              <li class="about-items"><i class="mdi mdi-certificate-outline icon-sm "></i><span
+                  class="about-item-name">Diplome:</span><span class="about-item-detail">{{fullUser?.diplome}}</span>
+              </li>
+              <li class="about-items"><i class="mdi mdi-account-supervisor-outline icon-sm "></i><span
+                  class="about-item-name">Encadrant:</span><span class="about-item-detail">
+                  <button class="btn btn-primary" (click)="encadrer()"
+                    *ngIf="this.ens.type === 'ens' && encadre ">Encadrer</button>
+                  {{fullUser?.encadrant}}</span> </li>
+              <li class="about-items"><i class="mdi mdi-office-building icon-sm "></i><span
+                  class="about-item-name">Etablissement:</span><span
+                  class="about-item-detail">{{fullUser?.etablissement}}</span>
+              </li>
+              <li class="about-items"><i class="mdi mdi-elevation-rise icon-sm "></i><span
+                  class="about-item-name">Grade:</span><span class="about-item-detail">{{fullUser?.grade}}</span>
+              </li>
+              <li class="about-items"><i class="mdi mdi-file-pdf-outline icon-sm "></i><span
+                  class="about-item-name">CV:</span><span class="about-item-detail"><a href="{{fullUser?.cv}}"
+                    target="_blank">Voir</a></span></li>
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
+
     </div>
+
+
+
+
+  </div>
+  <!-- content-wrapper ends -->
+  <!-- partial:partials/_footer.html -->
+
+  <!-- partial -->
+</div>
+<!-- main-panel ends -->

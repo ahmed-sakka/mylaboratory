@@ -48,7 +48,22 @@
                 </button>
             </td>
         </tr>
-        
+        <tr>
+            <th></th>
+            <td>
+                <button mat-icon-button [routerLink]="'PublicationMembers'">
+                    <mat-icon>people</mat-icon>
+                </button>
+
+                <button mat-icon-button color="accent" [routerLink]="['edit']" *ngIf="isAuthorized">
+                    <mat-icon>edit</mat-icon>
+                </button>
+
+                <button mat-icon-button color="warn" (click)="onRemoveItem(item.id)" *ngIf="isAuthorized">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </tr>
 
     </tbody>
 </table>

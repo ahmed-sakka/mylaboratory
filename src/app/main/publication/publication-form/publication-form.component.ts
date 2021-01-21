@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Member } from 'src/models/member.model';
 import { Publication } from 'src/models/publication.model';
+import { MemberService } from 'src/services/member.service';
 import { PublicationService } from 'src/services/publication.service';
 
 @Component({
@@ -19,6 +21,7 @@ export class PublicationFormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private publicationService: PublicationService,
+    private memberService: MemberService,
   ) {
   }
 
@@ -47,7 +50,10 @@ export class PublicationFormComponent implements OnInit {
   onSubmit(): void {
     const objectToSubmit: Publication = {...this.item, ...this.form.value};
     console.log(objectToSubmit);
-    this.publicationService.savePublication(objectToSubmit).then(() => this.router.navigate(['./publications']));
+    //this.publicationService.savePublication(objectToSubmit).then(() => this.router.navigate(['./publications']));
+    const logged_in_user = JSON.parse(localStorage.getItem('user')) as Member;
+    const logged_in_user_id = (logged_in_user as unknown as Member).id;
+    this.publicationService.savePublication(objectToSubmit).then((resp) =>this.memberService.affecterPublication(Number(resp.id), Number(logged_in_user_id )).then(resp=>  this.router.navigate(['./publications'])));
   }
 
   isFormInEditMode(): boolean {

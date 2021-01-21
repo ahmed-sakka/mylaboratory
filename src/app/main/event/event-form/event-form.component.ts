@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Event } from 'src/models/event.model';
+import { Member } from 'src/models/member.model';
 import { EventService } from 'src/services/event.service';
+import { MemberService } from 'src/services/member.service';
 
 @Component({
   selector: 'app-event-form',
@@ -19,6 +21,7 @@ export class EventFormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private eventService: EventService,
+    private memberService: MemberService,
   ) {
   }
 
@@ -45,7 +48,10 @@ export class EventFormComponent implements OnInit {
   onSubmit(): void {
     const objectToSubmit: Event = {...this.item, ...this.form.value};
     console.log(objectToSubmit);
-    this.eventService.saveEvent(objectToSubmit).then(() => this.router.navigate(['./events']));
+    //this.eventService.saveEvent(objectToSubmit).then(() => this.router.navigate(['./events']));
+    const logged_in_user = JSON.parse(localStorage.getItem('user')) as Member;
+    const logged_in_user_id = (logged_in_user as unknown as Member).id;
+    this.eventService.saveEvent(objectToSubmit).then((resp) => this.memberService.affecterEvent(Number(resp.id), Number(logged_in_user_id)).then(resp => this.router.navigate(['./events'])));
   }
 
   isFormInEditMode(): boolean {
