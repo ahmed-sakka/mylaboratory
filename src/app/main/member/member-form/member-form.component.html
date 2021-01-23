@@ -62,10 +62,10 @@
             <input matInput placeholder="CV" formControlName="cv">
         </mat-form-field>
   <mat-form-field class="example-full-width">
-            <mat-label>Encadrant CIN</mat-label>
+            <mat-label>Encadrant</mat-label>
             <mat-select formControlName="encadrant" [(ngModel)]="selectedEnc">
               <mat-option
-                *ngFor="let encadrant of encadrants" [value]="encadrant">{{encadrant.nom}}</mat-option>
+                *ngFor="let encadrant of encadrants" [value]="encadrant">{{encadrant.prenom}} {{encadrant.nom}}</mat-option>
             </mat-select>
           </mat-form-field>
           <br>

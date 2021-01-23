@@ -23,6 +23,11 @@
               <div class="profile-name">{{fullUser?.prenom}} {{fullUser?.nom}}</div>
               <div class="profile-designation">{{fullUser?.type}}</div>
 
+              <div class="d-flex justify-content-center">
+                <button class="btn btn-primary" [routerLink]="'/members/' + fullUser.id + '/edit'"
+                  *ngIf="isAuthorized">Modifier</button>
+              </div>
+
               <ul class="profile-info-list">
                 <a href="profile/{{fullUser?.id}}/publications" class="profile-info-list-item"><i
                     class="mdi mdi-file-document-outline"></i>Publications
@@ -80,7 +85,7 @@
                   class="about-item-name">Encadrant:</span><span class="about-item-detail">
                   <button class="btn btn-primary" (click)="encadrer()"
                     *ngIf="this.ens.type === 'ens' && encadre ">Encadrer</button>
-                  {{fullUser?.encadrant}}</span> </li>
+                  {{fullUser?.encadrant.prenom}} {{fullUser?.encadrant.nom}}</span> </li>
               <li class="about-items"><i class="mdi mdi-office-building icon-sm "></i><span
                   class="about-item-name">Etablissement:</span><span
                   class="about-item-detail">{{fullUser?.etablissement}}</span>
