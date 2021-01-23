@@ -5,6 +5,7 @@ import {Member} from '../../../../models/member.model';
 import {MatDialog} from "@angular/material/dialog";
 import { Subject } from 'rxjs';
 import {takeUntil} from "rxjs/operators";
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-member-list',
@@ -15,8 +16,8 @@ export class MemberListComponent implements OnInit, OnDestroy {
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();
   isAdmin = false ;
-  displayedColumns: string[] = ['id', 'cin', 'nom', 'diplome' ,'email','dateNaissance', 'dateInscription', 'cv', 'type', 'actions'];
-  dataSource: Member[] = [];
+  displayedColumns: string[] = ['id', 'cin', 'nom', 'diplome' ,'email','dateNaissance', 'dateInscription', 'cv', 'type', 'etablisssement' ,'actions'];
+  dataSource;
 
   constructor(
     private memberService: MemberService,
@@ -34,14 +35,12 @@ export class MemberListComponent implements OnInit, OnDestroy {
     
   }
 
+ 
   fetchDataSource(): void {
     this.memberService.getAllMembers().then(data => {
-      this.dataSource = data;
+      this.dataSource = new MatTableDataSource(data);
       const role = localStorage.getItem('role');
       this.isAdmin = role === 'ROLE_ADMIN';
-
-     
-
     });
   }
 
@@ -59,6 +58,12 @@ export class MemberListComponent implements OnInit, OnDestroy {
         this.memberService.removeMemberById(id).then(() => this.fetchDataSource());
       }
     });
+  }
+
+  // tslint:disable-next-line:typedef
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }
