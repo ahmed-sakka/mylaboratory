@@ -5,7 +5,10 @@
   </button>
 
 </div>
-
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+</mat-form-field>
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100-p">
   <ng-container matColumnDef="id">
     <th mat-header-cell class="px-12" *matHeaderCellDef mat-sort-header> ID</th>

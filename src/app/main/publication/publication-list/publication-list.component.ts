@@ -38,14 +38,14 @@ export class PublicationListComponent implements OnInit, OnDestroy, AfterViewIni
     this.fetchDataSource();
   }
 
+ 
   fetchDataSource(): void {
     this.publicationService.getAllPublications().then(data => {
-      this.dataSource = data;
+      this.dataSource = new MatTableDataSource(data);
       const role = localStorage.getItem('role');
       this.isAdmin = role === 'ROLE_ADMIN'; 
       this.isUser = role === 'ROLE_USER';
       this.isAuthorized = role === 'ROLE_ADMIN' || role === 'ROLE_USER'; 
-      
     });
   }
 
@@ -77,6 +77,11 @@ export class PublicationListComponent implements OnInit, OnDestroy, AfterViewIni
           this.dataSource.sort = this.sort;
       }
     });
+  }
+  // tslint:disable-next-line:typedef
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }
